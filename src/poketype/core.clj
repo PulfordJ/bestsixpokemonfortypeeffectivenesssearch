@@ -1,5 +1,6 @@
 (ns poketype.core
-  (:require [clojure.math.combinatorics :as combo ])
+  (:require [clojure.math.combinatorics :as combo ]
+            [clojure.core.reducers :as r])
   (:use clojure.pprint )
   )
 
@@ -49,28 +50,28 @@
    :dark
    :fairy
    ]
-   )
+  )
 
 (def type-effectiveness-attack-defence
   [
-  [1 1 1 1 1 1/2 1 0 1/2 1 1 1 1 1 1 1 1 1]
-  [2 1 1/2 1/2 1 2 1/2 0 2 1 1 1 1 1/2 2 1 2 1/2]
-  [1 2 1 1 1 1/2 2 1 1/2 1 1 2 1/2 1 1 1 1 1]
-  [1 1 1 1/2 1/2 1/2 1 1/2 0 1 1 2 1 1 1 1 1 2]
-  [1 1 0 2 1 2 1/2 1 2 2 1 1/2 2 1 1 1 1 1]
-  [1 1/2 2 1 1/2 1 2 1 1/2 2 1 1 1 1 2 1 1 1]
-  [1 1/2 1/2 1/2 1 1 1 1/2 1/2 1/2 1 2 1 2 1 1 2 1/2]
-  [0 1 1 1 1 1 1 2 1 1 1 1 1 2 1 1 1/2 1]
-  [1 1 1 1 1 2 1 1 1/2 1/2 1/2 1 1/2 1 2 1 1 2]
-  [1 1 1 1 1 1/2 2 1 2 1/2 1/2 2 1 1 2 1/2 1 1]
-  [1 1 1 1 2 2 1 1 1 2 1/2 1/2 1 1 1 1/2 1 1]
-  [1 1 1/2 1/2 2 2 1/2 1 1/2 1/2 2 1/2 1 1 1 1/2 1 1]
-  [1 1 2 1 0 1 1 1 1 1 2 1/2 1/2 1 1 1/2 1 1]
-  [1 2 1 2 1 1 1 1 1/2 1 1 1 1 1/2 1 1 0 1]
-  [1 1 2 1 2 1 1 1 1/2 1/2 1/2 2 1 1 1/2 2 1 1]
-  [1 1 1 1 1 1 1 1 1/2 1 1 1 1 1 1 2 1 0]
-  [1 1/2 1 1 1 1 1 2 1 1 1 1 1 2 1 1 1/2 1/2]
-  [1 2 1 1/2 1 1 1 1 1/2 1/2 1 1 1 1 1 2 2 1 ]
+   [1 1 1 1 1 1/2 1 0 1/2 1 1 1 1 1 1 1 1 1]
+   [2 1 1/2 1/2 1 2 1/2 0 2 1 1 1 1 1/2 2 1 2 1/2]
+   [1 2 1 1 1 1/2 2 1 1/2 1 1 2 1/2 1 1 1 1 1]
+   [1 1 1 1/2 1/2 1/2 1 1/2 0 1 1 2 1 1 1 1 1 2]
+   [1 1 0 2 1 2 1/2 1 2 2 1 1/2 2 1 1 1 1 1]
+   [1 1/2 2 1 1/2 1 2 1 1/2 2 1 1 1 1 2 1 1 1]
+   [1 1/2 1/2 1/2 1 1 1 1/2 1/2 1/2 1 2 1 2 1 1 2 1/2]
+   [0 1 1 1 1 1 1 2 1 1 1 1 1 2 1 1 1/2 1]
+   [1 1 1 1 1 2 1 1 1/2 1/2 1/2 1 1/2 1 2 1 1 2]
+   [1 1 1 1 1 1/2 2 1 2 1/2 1/2 2 1 1 2 1/2 1 1]
+   [1 1 1 1 2 2 1 1 1 2 1/2 1/2 1 1 1 1/2 1 1]
+   [1 1 1/2 1/2 2 2 1/2 1 1/2 1/2 2 1/2 1 1 1 1/2 1 1]
+   [1 1 2 1 0 1 1 1 1 1 2 1/2 1/2 1 1 1/2 1 1]
+   [1 2 1 2 1 1 1 1 1/2 1 1 1 1 1/2 1 1 0 1]
+   [1 1 2 1 2 1 1 1 1/2 1/2 1/2 2 1 1 1/2 2 1 1]
+   [1 1 1 1 1 1 1 1 1/2 1 1 1 1 1 1 2 1 0]
+   [1 1/2 1 1 1 1 1 2 1 1 1 1 1 2 1 1 1/2 1/2]
+   [1 2 1 1/2 1 1 1 1 1/2 1/2 1 1 1 1 1 2 2 1 ]
    ]
   )
 
@@ -107,44 +108,44 @@
   )
 
 (defn loadout-total-effectiveness [& type-vector] 
-(apply + (apply loadout-max-effectiveness-array type-vector))
+  (apply + (apply loadout-max-effectiveness-array type-vector))
   )
 
 (defn loadouts-total-effectiveness [loadouts]
   (map 
     (fn [x] (apply loadout-total-effectiveness x)) 
-       loadouts) 
-)
+    loadouts) 
+  )
 
 (defn loadouts-max-effectiveness-arrays [loadouts]
   (map 
     (fn [x] [(apply loadout-max-effectiveness-array x)
-      (apply loadout-total-effectiveness x)]) 
-       loadouts) 
+             (apply loadout-total-effectiveness x)]) 
+    loadouts) 
   ) 
 
 
 (defn loadouts->key-val-loadouts-effectiveness-array [loadouts]
   (zipmap loadouts (loadouts-max-effectiveness-arrays loadouts)
-                    )
+          )
   )
 
 (defn loadouts-effectiveness-result->total [result]
-(get result 1))
+  (get result 1))
 
 (defn loadouts->sorted-key-val-loadouts-effectiveness-array [loadouts]
- (let [non-sorted-results 
-       (loadouts->key-val-loadouts-effectiveness-array loadouts) ]
- (into (sorted-map-by (fn [key1 key2]
+  (let [non-sorted-results 
+        (loadouts->key-val-loadouts-effectiveness-array loadouts) ]
+    (into (sorted-map-by (fn [key1 key2]
                            (compare 
                              [(get (get non-sorted-results key2) 1) key2]
                              [(get (get non-sorted-results key1) 1) key1] )))
-        non-sorted-results)))
+          non-sorted-results)))
 
 (defn loadouts-key-val-entry-string [key-val-entry]
-   (conj 
-     (vector (map type-index->keyword (key key-val-entry)))
-     (val key-val-entry))
+  (conj 
+    (vector (map type-index->keyword (key key-val-entry)))
+    (val key-val-entry))
   )
 
 (defn loadouts-map-string [loadoutsMapping] 
@@ -152,7 +153,8 @@
   )
 
 (defn -main []
-  (pprint (loadouts-map-string
-    (filter (fn [x] (>= (get (val x) 1) 35)) (loadouts->sorted-key-val-loadouts-effectiveness-array type-combos-vector)))))
-
-;; (pprint (filter (fn [x] (== 34 (get (val x) 1))) (loadouts->sorted-key-val-loadouts-effectiveness-array type-combos-vector)))
+  
+   (pprint (loadouts-map-string
+             (into [] (r/filter (fn [x] (>= (get (val x) 1) 35)) 
+                     (loadouts->sorted-key-val-loadouts-effectiveness-array type-combos-vector)))))
+   )

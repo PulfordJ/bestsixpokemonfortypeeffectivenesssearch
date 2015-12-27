@@ -118,7 +118,7 @@
   )
 
 (defn loadouts-max-effectiveness-arrays [loadouts]
-  (map 
+  (pmap 
     (fn [x] [(apply loadout-max-effectiveness-array x)
              (apply loadout-total-effectiveness x)]) 
     loadouts) 
@@ -156,5 +156,5 @@
   
    (pprint (loadouts-map-string
              (into [] (r/filter (fn [x] (>= (get (val x) 1) 35)) 
-                     (loadouts->sorted-key-val-loadouts-effectiveness-array type-combos-vector)))))
+                     (loadouts->sorted-key-val-loadouts-effectiveness-array type-combos-vector)))))(shutdown-agents)
    )

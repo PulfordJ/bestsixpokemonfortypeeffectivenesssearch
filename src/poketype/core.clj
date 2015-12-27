@@ -104,57 +104,48 @@
   )
 
 (defn loadout-max-effectiveness-array [& type-vector] 
-  (map (fn [x] (apply max x)) (transpose (apply select-loadout type-vector))) 
+  (r/foldcat (r/map (fn [x] (apply max x)) (transpose (apply select-loadout type-vector)))) 
   )
 
 (defn loadout-total-effectiveness [& type-vector] 
-  (apply + (apply loadout-max-effectiveness-array type-vector))
+  (r/fold + (apply loadout-max-effectiveness-array type-vector))
   )
 
 (defn loadouts-total-effectiveness [loadouts]
-  (map 
+  (r/map 
     (fn [x] (apply loadout-total-effectiveness x)) 
     loadouts) 
   )
 
 (defn loadouts-max-effectiveness-arrays [loadouts]
-  (pmap 
+  (r/foldcat (r/map 
     (fn [x] [(apply loadout-max-effectiveness-array x)
              (apply loadout-total-effectiveness x)]) 
-    loadouts) 
+    loadouts)) 
   ) 
 
 
 (defn loadouts->key-val-loadouts-effectiveness-array [loadouts]
-  (zipmap loadouts (loadouts-max-effectiveness-arrays loadouts)
-          )
+  (map (fn[x] [x  [(apply loadout-max-effectiveness-array x) (apply loadout-total-effectiveness x)] ]) loadouts)
   )
 
 (defn loadouts-effectiveness-result->total [result]
   (get result 1))
 
-(defn loadouts->sorted-key-val-loadouts-effectiveness-array [loadouts]
-  (let [non-sorted-results 
-        (loadouts->key-val-loadouts-effectiveness-array loadouts) ]
-    (into (sorted-map-by (fn [key1 key2]
-                           (compare 
-                             [(get (get non-sorted-results key2) 1) key2]
-                             [(get (get non-sorted-results key1) 1) key1] )))
-          non-sorted-results)))
 
 (defn loadouts-key-val-entry-string [key-val-entry]
   (conj 
-    (vector (map type-index->keyword (key key-val-entry)))
+    (map type-index->keyword (get key-val-entry 0))
     (val key-val-entry))
   )
 
 (defn loadouts-map-string [loadoutsMapping] 
-  (map loadouts-key-val-entry-string loadoutsMapping)  
+  (map (fn[x] [(map type-index->keyword (get x 0)) (get x 1)] ) loadoutsMapping)
   )
 
 (defn -main []
   
    (pprint (loadouts-map-string
-             (into [] (r/filter (fn [x] (>= (get (val x) 1) 35)) 
-                     (loadouts->sorted-key-val-loadouts-effectiveness-array type-combos-vector)))))(shutdown-agents)
+             (into [] (r/filter (fn [x] (>= (get (get x 1) 1) 35)) 
+                     (loadouts->key-val-loadouts-effectiveness-array type-combos-vector)))))(shutdown-agents)
    )

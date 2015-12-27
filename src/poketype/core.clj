@@ -117,27 +117,12 @@
     loadouts) 
   )
 
-(defn loadouts-max-effectiveness-arrays [loadouts]
-  (r/foldcat (r/map 
-    (fn [x] [(apply loadout-max-effectiveness-array x)
-             (apply loadout-total-effectiveness x)]) 
-    loadouts)) 
-  ) 
-
-
 (defn loadouts->key-val-loadouts-effectiveness-array [loadouts]
-  (map (fn[x] [x  [(apply loadout-max-effectiveness-array x) (apply loadout-total-effectiveness x)] ]) loadouts)
+  (r/map (fn[x] (let [max-arr (apply loadout-max-effectiveness-array x)] [x  [max-arr (apply loadout-total-effectiveness x)] ])) loadouts)
   )
 
 (defn loadouts-effectiveness-result->total [result]
   (get result 1))
-
-
-(defn loadouts-key-val-entry-string [key-val-entry]
-  (conj 
-    (map type-index->keyword (get key-val-entry 0))
-    (val key-val-entry))
-  )
 
 (defn loadouts-map-string [loadoutsMapping] 
   (map (fn[x] [(map type-index->keyword (get x 0)) (get x 1)] ) loadoutsMapping)

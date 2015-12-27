@@ -104,21 +104,15 @@
   )
 
 (defn loadout-max-effectiveness-array [& type-vector] 
-  (r/foldcat (r/map (fn [x] (apply max x)) (transpose (apply select-loadout type-vector)))) 
+  (map (fn [x] (apply max x)) (transpose (apply select-loadout type-vector))) 
   )
 
-(defn loadout-total-effectiveness [& type-vector] 
-  (r/fold + (apply loadout-max-effectiveness-array type-vector))
-  )
-
-(defn loadouts-total-effectiveness [loadouts]
-  (r/map 
-    (fn [x] (apply loadout-total-effectiveness x)) 
-    loadouts) 
+(defn loadout-total-effectiveness [max-arr] 
+  (apply + max-arr)
   )
 
 (defn loadouts->key-val-loadouts-effectiveness-array [loadouts]
-  (r/map (fn[x] (let [max-arr (apply loadout-max-effectiveness-array x)] [x  [max-arr (apply loadout-total-effectiveness x)] ])) loadouts)
+  (pmap (fn[x] (let [max-arr (apply loadout-max-effectiveness-array x)] [x  [max-arr (loadout-total-effectiveness max-arr)] ])) loadouts)
   )
 
 (defn loadouts-effectiveness-result->total [result]
@@ -132,5 +126,5 @@
   
    (pprint (loadouts-map-string
              (into [] (r/filter (fn [x] (>= (get (get x 1) 1) 35)) 
-                     (loadouts->key-val-loadouts-effectiveness-array type-combos-vector)))))(shutdown-agents)
+                     (loadouts->key-val-loadouts-effectiveness-array type-combos-vector)))))
    )

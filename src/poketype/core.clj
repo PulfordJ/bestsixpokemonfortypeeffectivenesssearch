@@ -121,7 +121,20 @@
             :flying 
             :psychic 
             :fairy]
-   
+   :fire [:normal
+          :water
+          :electric
+          :fight
+          :ground
+          :flying
+          :psychic
+          :bug
+          :rock
+          :ghost
+          :dragon
+          :dark
+          :steel
+          ]
    }
   ) 
 
@@ -135,7 +148,7 @@
   (transpose 
     (apply conj 
       type-effectiveness-defence-attack 
-      (first type-effectiveness-dual-defence)))
+      (apply concat type-effectiveness-dual-defence)))
   )
 
 
@@ -162,9 +175,15 @@
   (map (fn[x] [(map type-index->keyword (get x 0)) (get x 1)] ) loadoutsMapping)
   )
 
+(def highest-score
+  (apply max (map #(get (get %1 1) 1)  (loadouts->key-val-loadouts-effectiveness-array type-combos-vector))) 
+  )
+
+
+
 (defn -main []
   
    (pprint (loadouts-map-string
-             (into [] (r/filter (fn [x] (>= (get (get x 1) 1) 53)) 
+             (into [] (r/filter (fn [x] (>= (get (get x 1) 1) 89)) 
                      (loadouts->key-val-loadouts-effectiveness-array type-combos-vector)))))
    )

@@ -87,7 +87,7 @@
   
 
 (def type-combos 
-  (combo/combinations all-attack-types 6))
+  (combo/combinations all-attack-types 12))
 
 (def type-combos-vector 
   (map (fn [x] (apply vector x)) type-combos)
@@ -121,7 +121,7 @@
             :flying 
             :psychic 
             :fairy]
-   :fire [:normal
+   :fire [
           :water
           :electric
           :fight
@@ -135,7 +135,110 @@
           :dark
           :steel
           ]
-   }
+   :water [
+           :electric
+           :grass
+           :ice
+           :fight
+           :poison
+           :ground
+           :flying
+           :psychic
+           :bug
+           :rock
+           :ghost
+           :dragon
+           :dark
+           :steel
+           :fairy
+           ]
+   :electric [:grass
+              :ice
+              :ground
+              :flying
+              :bug
+              :ghost
+              :dragon
+              :steel
+              :fairy
+              ]
+   :grass [:ice
+           :fight
+           :poison
+           :ground
+           :flying
+           :psychic
+           :bug
+           :rock
+           :ghost
+           :dragon
+           :dark
+           :steel
+           :fairy
+           ]
+   :ice   [:ground
+           :flying
+           :psychic
+           :rock
+           :ghost
+           :dragon
+           :dark
+           ]
+   :fight [:poison
+           :flying
+           :psychic
+           :bug
+           :rock
+           :dark
+           :steel
+           ]
+   :poison [:ground
+            :flying
+            :bug
+            :ghost
+            :dragon
+            :dark
+            ]
+   :ground [:flying
+            :psychic
+            :bug
+            :rock
+            :ghost
+            :dragon
+            :dark
+            :steel
+            ]
+   :flying [:psychic
+            :bug
+            :rock
+            :ghost
+            :dragon
+            :dark
+            :steel
+            :fairy
+            ]
+   :psychic [:rock
+             :ghost
+             :dragon
+             :dark
+             :steel
+             :fairy]
+   :bug     [:rock
+             :ghost
+             :steel]
+   :rock    [:dragon
+             :dark
+             :steel
+             :fairy]
+   :ghost   [:dragon
+             :dark
+             :steel]
+   :dragon  [:dark
+             :steel
+             :fairy]
+   :dark    [:steel]
+   :steel   [:fairy]   
+}
   ) 
 
 (def type-effectiveness-dual-defence
@@ -165,25 +268,32 @@
   )
 
 (defn loadouts->key-val-loadouts-effectiveness-array [loadouts]
-  (pmap (fn[x] (let [max-arr (apply loadout-max-effectiveness-array x)] [x  [max-arr (loadout-total-effectiveness max-arr)] ])) loadouts)
+  (pmap (fn[x] (let [max-arr (apply loadout-max-effectiveness-array x)] [x  [max-arr (loadout-total-effectiveness max-arr) (apply min max-arr)] ])) loadouts)
   )
 
 (defn loadouts-effectiveness-result->total [result]
   (get result 1))
 
 (defn loadouts-map-string [loadoutsMapping] 
-  (map (fn[x] [(map type-index->keyword (get x 0)) (get x 1)] ) loadoutsMapping)
+  (map (fn[x] [
+               (map type-index->keyword (get x 0)) 
+               (get (get x 1) 1) 
+               ] ) loadoutsMapping)
   )
 
 (def highest-score
-  (apply max (map #(get (get %1 1) 1)  (loadouts->key-val-loadouts-effectiveness-array type-combos-vector))) 
+  (apply max (map #(get (get %1 1) 1)  
+                  (loadouts->key-val-loadouts-effectiveness-array type-combos-vector))) 
   )
+(def highest-score-with-all-types 
+  (loadouts->key-val-loadouts-effectiveness-array [(range 0 18)]))
 
 
+(def score-cutoff 338)
 
 (defn -main []
-  
-   (pprint (loadouts-map-string
-             (into [] (r/filter (fn [x] (>= (get (get x 1) 1) 89)) 
-                     (loadouts->key-val-loadouts-effectiveness-array type-combos-vector)))))
+ (binding [*print-right-margin* 100]  (pprint (loadouts-map-string
+             (into [] (r/filter (fn [x] (and (>= (get (get x 1) 1) score-cutoff) (> (get (get x 1) 2) 0)) ) 
+                     (loadouts->key-val-loadouts-effectiveness-array type-combos-vector)))))) 
+   
    )

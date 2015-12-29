@@ -8,7 +8,7 @@
       (get-in type-effectiveness-attack-defence [dark dark]) => (/ 1 2)
       (get-in type-effectiveness-attack-defence [dark dark]) => 1/2
       (count (get type-effectiveness-attack-defence normal)) => 18)
-      (count (get type-effectiveness-attack-defence-dual normal)) => 40 
+      (count (get type-effectiveness-attack-defence-dual normal)) => 133
 
 ;(fact "select loadout works"
 ;      (select-loadout normal) => '([1, 1, 1, 1, 1, 1/2, 1, 0, 1/2, 1, 1, 1, 1, 1, 1, 1, 1, 1])

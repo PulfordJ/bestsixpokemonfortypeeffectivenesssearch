@@ -2,6 +2,26 @@
 
 Run program with  `lein run`.
 
+Static copy of results from testing entire single-type and dual-type effectiveness from Gen VI:
+
+```clojure
+([(:fight :flying :poison :ground :rock :bug :ghost :steel :fire :grass :ice :fairy) 338]
+ [(:fight :flying :poison :ground :rock :bug :ghost :fire :water :grass :ice :fairy) 338]
+ [(:fight :flying :poison :ground :rock :bug :ghost :fire :grass :electric :ice :fairy) 338]
+ [(:fight :flying :poison :ground :rock :bug :ghost :fire :grass :psychic :ice :fairy) 338]
+ [(:fight :flying :poison :ground :rock :bug :steel :fire :grass :ice :dark :fairy) 338]
+ [(:fight :flying :poison :ground :rock :bug :fire :water :grass :ice :dark :fairy) 338]
+ [(:fight :flying :poison :ground :rock :bug :fire :grass :electric :ice :dark :fairy) 338]
+ [(:fight :flying :poison :ground :rock :bug :fire :grass :psychic :ice :dark :fairy) 338]
+ [(:fight :flying :ground :rock :bug :ghost :steel :fire :water :grass :ice :fairy) 338]
+ [(:fight :flying :ground :rock :bug :ghost :steel :fire :grass :electric :ice :fairy) 338]
+ [(:fight :flying :ground :rock :bug :ghost :steel :fire :grass :psychic :ice :fairy) 338]
+ [(:fight :flying :ground :rock :bug :steel :fire :water :grass :ice :dark :fairy) 338]
+ [(:fight :flying :ground :rock :bug :steel :fire :grass :electric :ice :dark :fairy) 338]
+ [(:fight :flying :ground :rock :bug :steel :fire :grass :psychic :ice :dark :fairy) 338])
+"Elapsed time: 13743.341593 msecs"
+```
+
 Static copy of results from testing entire single-type effectiveness space from Gen VI:
 
 ```clojure

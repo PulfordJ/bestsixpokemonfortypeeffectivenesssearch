@@ -52,6 +52,13 @@
    ]
   )
 
+(def keyword->type-index
+  (into {}  (map (fn [x] 
+         [x (.indexOf type-index->keyword x)] ) 
+       type-index->keyword)) 
+  )
+
+
 (def type-effectiveness-attack-defence
   [
    [1 1 1 1 1 1/2 1 0 1/2 1 1 1 1 1 1 1 1 1]
@@ -76,8 +83,8 @@
   )
 
 (def all-attack-types 
-  (range 0 (count (get type-effectiveness-attack-defence 0)))
-  )
+  (range 0 (count (get type-effectiveness-attack-defence 0))))
+  
 
 (def type-combos 
   (combo/combinations all-attack-types 6))
@@ -93,14 +100,47 @@
   (transpose type-effectiveness-attack-defence)
   )
 
-(defn max-effective-indexes [index] 
-  (apply max-key second 
-         (map-indexed vector 
-                      (get type-effectiveness-defence-attack index))))
+(defn generate-dual-type-effectiveness-number-args [type1 type2]
+  (map * (get type-effectiveness-defence-attack type1)
+       (get type-effectiveness-defence-attack type2)
+       )) 
+
+(defn generate-dual-type-effectiveness [type1 type2]
+  (generate-dual-type-effectiveness-number-args 
+    (type1 keyword->type-index)
+    (type2 keyword->type-index)
+    )) 
+
+(def dual-type-combos 
+  {:normal [:fire
+            :water 
+            :electric 
+            :grass 
+            :fight 
+            :ground 
+            :flying 
+            :psychic 
+            :fairy]
+   
+   }
+  ) 
+
+(def type-effectiveness-dual-defence
+ (map (fn [x] 
+        (map (partial generate-dual-type-effectiveness (key x))
+             (val x)
+             ))  dual-type-combos) )
+
+(def type-effectiveness-attack-defence-dual
+  (transpose 
+    (apply conj 
+      type-effectiveness-defence-attack 
+      (first type-effectiveness-dual-defence)))
+  )
 
 
 (defn select-loadout [& type-vector]
-  (map (fn [x] (get type-effectiveness-attack-defence x)) type-vector)
+  (map (fn [x] (get type-effectiveness-attack-defence-dual x)) type-vector)
   )
 
 (defn loadout-max-effectiveness-array [& type-vector] 
@@ -125,6 +165,6 @@
 (defn -main []
   
    (pprint (loadouts-map-string
-             (into [] (r/filter (fn [x] (>= (get (get x 1) 1) 35)) 
+             (into [] (r/filter (fn [x] (>= (get (get x 1) 1) 53)) 
                      (loadouts->key-val-loadouts-effectiveness-array type-combos-vector)))))
    )

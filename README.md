@@ -21,6 +21,20 @@ Static copy of results from testing entire single-type and dual-type effectivene
  [(:fight :flying :ground :rock :bug :steel :fire :grass :psychic :ice :dark :fairy) 338])
 "Elapsed time: 13743.341593 msecs"
 ```
+First 8 types preference for maximum coverage (In order of best n-types-of-coverage. For example if only one pokemon was acquired ice would provide the best type effectiveness.:
+
+```clojure
+[
+:ice
+:ground
+:rock
+:fight
+:grass
+:fire
+:bug
+:fairy
+]
+```
 
 Static copy of results from testing entire single-type effectiveness space from Gen VI:
 

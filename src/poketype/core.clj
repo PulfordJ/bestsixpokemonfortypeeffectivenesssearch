@@ -289,7 +289,7 @@
   (loadouts->key-val-loadouts-effectiveness-array [(range 0 18)]))
 
 
-(def score-cutoff 338)
+(def score-cutoff highest-score)
 
 (defn -main []
  (binding [*print-right-margin* 100]  (pprint (loadouts-map-string

@@ -1,7 +1,6 @@
 (ns poketype.core
   (:require [clojure.math.combinatorics :as combo ]
             [clojure.core.reducers :as r]
-            [clojure.core.matrix :as matrix]
             )
   (:use clojure.pprint )
   )
@@ -56,49 +55,43 @@
 
 (def keyword->type-index
   (into {}  (map (fn [x] 
-         [x (.indexOf type-index->keyword x)] ) 
-       type-index->keyword)) 
+                   [x (.indexOf type-index->keyword x)] ) 
+                 type-index->keyword)) 
   )
 
-(def same-type-attack-bonus-matrix 
-  (matrix/emap #(cond (== %1 1) 1.5 :else 1) (matrix/identity-matrix 18))
-  
-)
-
-
 (def type-effectiveness-attack-defence
-  (matrix/mul [
-   [1 1 1 1 1 1/2 1 0 1/2 1 1 1 1 1 1 1 1 1]
-   [2 1 1/2 1/2 1 2 1/2 0 2 1 1 1 1 1/2 2 1 2 1/2]
-   [1 2 1 1 1 1/2 2 1 1/2 1 1 2 1/2 1 1 1 1 1]
-   [1 1 1 1/2 1/2 1/2 1 1/2 0 1 1 2 1 1 1 1 1 2]
-   [1 1 0 2 1 2 1/2 1 2 2 1 1/2 2 1 1 1 1 1]
-   [1 1/2 2 1 1/2 1 2 1 1/2 2 1 1 1 1 2 1 1 1]
-   [1 1/2 1/2 1/2 1 1 1 1/2 1/2 1/2 1 2 1 2 1 1 2 1/2]
-   [0 1 1 1 1 1 1 2 1 1 1 1 1 2 1 1 1/2 1]
-   [1 1 1 1 1 2 1 1 1/2 1/2 1/2 1 1/2 1 2 1 1 2]
-   [1 1 1 1 1 1/2 2 1 2 1/2 1/2 2 1 1 2 1/2 1 1]
-   [1 1 1 1 2 2 1 1 1 2 1/2 1/2 1 1 1 1/2 1 1]
-   [1 1 1/2 1/2 2 2 1/2 1 1/2 1/2 2 1/2 1 1 1 1/2 1 1]
-   [1 1 2 1 0 1 1 1 1 1 2 1/2 1/2 1 1 1/2 1 1]
-   [1 2 1 2 1 1 1 1 1/2 1 1 1 1 1/2 1 1 0 1]
-   [1 1 2 1 2 1 1 1 1/2 1/2 1/2 2 1 1 1/2 2 1 1]
-   [1 1 1 1 1 1 1 1 1/2 1 1 1 1 1 1 2 1 0]
-   [1 1/2 1 1 1 1 1 2 1 1 1 1 1 2 1 1 1/2 1/2]
-   [1 2 1 1/2 1 1 1 1 1/2 1/2 1 1 1 1 1 2 2 1 ]
-   ] same-type-attack-bonus-matrix)
-  
+  [
+    [1 1 1 1 1 1/2 1 0 1/2 1 1 1 1 1 1 1 1 1]
+    [2 1 1/2 1/2 1 2 1/2 0 2 1 1 1 1 1/2 2 1 2 1/2]
+    [1 2 1 1 1 1/2 2 1 1/2 1 1 2 1/2 1 1 1 1 1]
+    [1 1 1 1/2 1/2 1/2 1 1/2 0 1 1 2 1 1 1 1 1 2]
+    [1 1 0 2 1 2 1/2 1 2 2 1 1/2 2 1 1 1 1 1]
+    [1 1/2 2 1 1/2 1 2 1 1/2 2 1 1 1 1 2 1 1 1]
+    [1 1/2 1/2 1/2 1 1 1 1/2 1/2 1/2 1 2 1 2 1 1 2 1/2]
+    [0 1 1 1 1 1 1 2 1 1 1 1 1 2 1 1 1/2 1]
+    [1 1 1 1 1 2 1 1 1/2 1/2 1/2 1 1/2 1 2 1 1 2]
+    [1 1 1 1 1 1/2 2 1 2 1/2 1/2 2 1 1 2 1/2 1 1]
+    [1 1 1 1 2 2 1 1 1 2 1/2 1/2 1 1 1 1/2 1 1]
+    [1 1 1/2 1/2 2 2 1/2 1 1/2 1/2 2 1/2 1 1 1 1/2 1 1]
+    [1 1 2 1 0 1 1 1 1 1 2 1/2 1/2 1 1 1/2 1 1]
+    [1 2 1 2 1 1 1 1 1/2 1 1 1 1 1/2 1 1 0 1]
+    [1 1 2 1 2 1 1 1 1/2 1/2 1/2 2 1 1 1/2 2 1 1]
+    [1 1 1 1 1 1 1 1 1/2 1 1 1 1 1 1 2 1 0]
+    [1 1/2 1 1 1 1 1 2 1 1 1 1 1 2 1 1 1/2 1/2]
+    [1 2 1 1/2 1 1 1 1 1/2 1/2 1 1 1 1 1 2 2 1 ]
+               ]
+
   )
 
 (def all-attack-types 
   (range 0 (count (get type-effectiveness-attack-defence 0))))
-  
 
-(def type-combos 
-  (combo/combinations all-attack-types 12))
 
-(def type-combos-vector 
-  (map (fn [x] (apply vector x)) type-combos)
+(defn type-combos [amount-of-types-in-loadout]
+  (combo/combinations all-attack-types amount-of-types-in-loadout))
+
+(defn type-combos-vector [amount-of-types-in-loadout]
+  (map (fn [x] (apply vector x)) (type-combos amount-of-types-in-loadout) )
   )
 
 (defn transpose [m]
@@ -225,41 +218,41 @@
             :steel
             :fairy
             ]
-   :psychic [:rock
-             :ghost
-             :dragon
-             :dark
-             :steel
-             :fairy]
-   :bug     [:rock
-             :ghost
-             :steel]
-   :rock    [:dragon
-             :dark
-             :steel
-             :fairy]
-   :ghost   [:dragon
-             :dark
-             :steel]
-   :dragon  [:dark
-             :steel
-             :fairy]
-   :dark    [:steel]
-   :steel   [:fairy]   
+:psychic [:rock
+          :ghost
+          :dragon
+          :dark
+          :steel
+          :fairy]
+:bug     [:rock
+          :ghost
+          :steel]
+:rock    [:dragon
+          :dark
+          :steel
+          :fairy]
+:ghost   [:dragon
+          :dark
+          :steel]
+:dragon  [:dark
+          :steel
+          :fairy]
+:dark    [:steel]
+:steel   [:fairy]   
 }
-  ) 
+) 
 
 (def type-effectiveness-dual-defence
- (map (fn [x] 
-        (map (partial generate-dual-type-effectiveness (key x))
-             (val x)
-             ))  dual-type-combos) )
+  (map (fn [x] 
+         (map (partial generate-dual-type-effectiveness (key x))
+              (val x)
+              ))  dual-type-combos) )
 
 (def type-effectiveness-attack-defence-dual
   (transpose 
     (apply conj 
-      type-effectiveness-defence-attack 
-      (apply concat type-effectiveness-dual-defence)))
+           type-effectiveness-defence-attack 
+           (apply concat type-effectiveness-dual-defence)))
   )
 
 
@@ -289,20 +282,32 @@
                ] ) loadoutsMapping)
   )
 
-(def highest-score
+(defn highest-score [amount-of-types-in-loadout]
   (apply max (map #(get (get %1 1) 1)  
-                  (loadouts->key-val-loadouts-effectiveness-array type-combos-vector))) 
+                  (loadouts->key-val-loadouts-effectiveness-array (type-combos-vector amount-of-types-in-loadout) ))) 
   )
 
 (def highest-score-with-all-types 
   (loadouts->key-val-loadouts-effectiveness-array [(range 0 18)]))
 
 
-(def score-cutoff highest-score)
+(defn score-cutoff [amount-of-types-in-loadout] 
+  (highest-score amount-of-types-in-loadout) )
+
+(defn get-and-print-loadouts [amount-of-types-in-loadout]
+  (let [score-bar (score-cutoff amount-of-types-in-loadout)](binding [*print-right-margin* 100]  
+    (pprint (loadouts-map-string
+              (into [] (r/filter (fn [x] (and (>= (get (get x 1) 1) score-bar) (> (get (get x 1) 2) 0)) ) 
+                                 (loadouts->key-val-loadouts-effectiveness-array (type-combos-vector amount-of-types-in-loadout))))))))
+  
+  )
+
+(defn recursive-1-to-n-loadout-checks [n] 
+  (if (> n 1) 
+     (recursive-1-to-n-loadout-checks (dec n))
+     )(get-and-print-loadouts n))
+     
 
 (defn -main []
- (binding [*print-right-margin* 100]  (pprint (loadouts-map-string
-             (into [] (r/filter (fn [x] (and (>= (get (get x 1) 1) score-cutoff) (> (get (get x 1) 2) 0)) ) 
-                     (loadouts->key-val-loadouts-effectiveness-array type-combos-vector)))))) 
-   
-   )
+  (recursive-1-to-n-loadout-checks 12) 
+  )

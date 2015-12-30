@@ -2,6 +2,22 @@
 
 Run program with  `lein run`.
 
+Static copy of results from testing entire single-type and dual-type effectiveness from Gen VI with amount of pokemon types in loadout running from 1 to 12 (The max if all 6 pokemon are hybrids). Instead of reporting total type-effectiveness the best lowest type effectiveness score; This shows that with 9 pokemon types a trainer can be "super effective" or better against all other pokemon.:
+```clojure
+([(:flying) 1/4])
+([(:fight :ghost) 1N])
+([(:normal :fight :ghost) 1N])
+([(:normal :fight :flying :ground) 1])
+([(:normal :fight :flying :poison :ground) 1])
+([(:normal :fight :flying :poison :ground :rock) 1])
+([(:normal :fight :flying :poison :ground :rock :bug) 1])
+([(:normal :fight :flying :poison :ground :rock :bug :ghost) 1])
+([(:fight :poison :ground :rock :fire :water :grass :dark :fairy) 2])
+([(:normal :fight :poison :ground :rock :fire :water :grass :dark :fairy) 2])
+([(:normal :fight :flying :poison :ground :rock :fire :water :grass :dark :fairy) 2])
+([(:normal :fight :flying :poison :ground :rock :bug :ghost :fire :water :grass :fairy) 2])
+"Elapsed time: 294871.945218 msecs"
+```
 Static copy of results from testing entire single-type and dual-type effectiveness from Gen VI with amount of pokemon types in loadout running from 1 to 12 (The max if all 6 pokemon are hybrids).:
 
 ```clojure

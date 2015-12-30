@@ -2,6 +2,13 @@
 
 Run program with  `lein run`.
 
+Static copy of results from testing entire single-type and dual-type effectiveness from Gen VI (same-type-attack-bonus included):
+```clojure
+([(:fight :flying :poison :ground :rock :bug :ghost :fire :grass :ice :dragon :fairy) 369.0]
+ [(:fight :flying :ground :rock :bug :ghost :steel :fire :grass :ice :dragon :fairy) 369.0])
+"Elapsed time: 14535.268226 msec
+```
+
 Static copy of results from testing entire single-type and dual-type effectiveness from Gen VI:
 
 ```clojure

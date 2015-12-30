@@ -1,6 +1,8 @@
 (ns poketype.core
   (:require [clojure.math.combinatorics :as combo ]
-            [clojure.core.reducers :as r])
+            [clojure.core.reducers :as r]
+            [clojure.core.matrix :as matrix]
+            )
   (:use clojure.pprint )
   )
 
@@ -58,9 +60,14 @@
        type-index->keyword)) 
   )
 
+(def same-type-attack-bonus-matrix 
+  (matrix/emap #(cond (== %1 1) 1.5 :else 1) (matrix/identity-matrix 18))
+  
+)
+
 
 (def type-effectiveness-attack-defence
-  [
+  (matrix/mul [
    [1 1 1 1 1 1/2 1 0 1/2 1 1 1 1 1 1 1 1 1]
    [2 1 1/2 1/2 1 2 1/2 0 2 1 1 1 1 1/2 2 1 2 1/2]
    [1 2 1 1 1 1/2 2 1 1/2 1 1 2 1/2 1 1 1 1 1]
@@ -79,7 +86,8 @@
    [1 1 1 1 1 1 1 1 1/2 1 1 1 1 1 1 2 1 0]
    [1 1/2 1 1 1 1 1 2 1 1 1 1 1 2 1 1 1/2 1/2]
    [1 2 1 1/2 1 1 1 1 1/2 1/2 1 1 1 1 1 2 2 1 ]
-   ]
+   ] same-type-attack-bonus-matrix)
+  
   )
 
 (def all-attack-types 
@@ -285,6 +293,7 @@
   (apply max (map #(get (get %1 1) 1)  
                   (loadouts->key-val-loadouts-effectiveness-array type-combos-vector))) 
   )
+
 (def highest-score-with-all-types 
   (loadouts->key-val-loadouts-effectiveness-array [(range 0 18)]))
 

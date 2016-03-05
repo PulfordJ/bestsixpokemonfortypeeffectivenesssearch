@@ -2,22 +2,41 @@
 
 Run program with  `lein run`.
 
-Static copy of results from testing entire single-type and dual-type effectiveness from Gen VI with amount of pokemon types in loadout running from 1 to 12 (The max if all 6 pokemon are hybrids). Instead of reporting total type-effectiveness the best lowest type effectiveness score; This shows that with 9 pokemon types a trainer can be "super effective" or better against all other pokemon.:
-```clojure
-([(:flying) 1/4])
-([(:fight :ghost) 1N])
-([(:normal :fight :ghost) 1N])
-([(:normal :fight :flying :ground) 1])
-([(:normal :fight :flying :poison :ground) 1])
-([(:normal :fight :flying :poison :ground :rock) 1])
-([(:normal :fight :flying :poison :ground :rock :bug) 1])
-([(:normal :fight :flying :poison :ground :rock :bug :ghost) 1])
-([(:fight :poison :ground :rock :fire :water :grass :dark :fairy) 2])
-([(:normal :fight :poison :ground :rock :fire :water :grass :dark :fairy) 2])
-([(:normal :fight :flying :poison :ground :rock :fire :water :grass :dark :fairy) 2])
-([(:normal :fight :flying :poison :ground :rock :bug :ghost :fire :water :grass :fairy) 2])
-"Elapsed time: 294871.945218 msecs"
+Static copy of results from testing entire single-type and dual-type effectiveness from Gen VI with amount of pokemon types in loadout running from 1 to 12 (The max if all 6 pokemon are hybrids). The results are then sorted by the lowest type effectiveness score (Ice is at least 1/4 effective against every type, for example.) and then by total type effectiveness against all current single and hybrid type pokemon. This shows that with 9 pokemon types a trainer can be "super effective" (2x effective) or better against all other pokemon.:
+
 ```
+([(:ice) [1/4 339/2]] [(:rock) [1/4 166N]] [(:fire) [1/4 313/2]])
+([(:fight :ghost) [1N 210N]] [(:ground :ice) [1/2 481/2]] [(:fight :ice) [1/2 227N]])
+([(:ground :rock :ice) [1 266N]] [(:ground :fire :ice) [1 264N]] [(:flying :ground :ice) [1 260N]])
+([(:fight :ground :rock :ice) [1 282N]]
+ [(:ground :rock :grass :ice) [1N 281N]]Static copy of results from testing entire single-type and dual-type effectiveness from Gen VI with amount of pokemon types in loadout running from 1 to 12 (The max if all 6 pokemon are hybrids). Instead of reporting total type-effectiveness the best lowest type effectiveness score; This shows that with 9 pokemon types a trainer can be "super effective" or better against all other pokemon.:
+ [(:ground :rock :ice :fairy) [1 281N]])
+([(:fight :ground :rock :grass :ice) [1N 294N]]
+ [(:ground :rock :grass :ice :fairy) [1 294N]]
+ [(:fight :flying :ground :rock :ice) [1 293N]])
+([(:fight :ground :rock :fire :grass :ice) [1N 305N]]
+ [(:ground :rock :fire :grass :ice :fairy) [1 305]]Static copy of results from testing entire single-type and dual-type effectiveness from Gen VI with amount of pokemon types in loadout running from 1 to 12 (The max if all 6 pokemon are hybrids). Instead of reporting total type-effectiveness the best lowest type effectiveness score; This shows that with 9 pokemon types a trainer can be "super effective" or better against all other pokemon.:
+ [(:fight :flying :ground :rock :grass :ice) [1N 304N]])
+([(:fight :ground :rock :bug :fire :grass :ice) [1N 315N]]
+ [(:fight :ground :rock :fire :grass :ice :fairy) [1 314]]
+ [(:ground :rock :bug :fire :grass :ice :fairy) [1 314]])
+([(:fight :ground :rock :bug :fire :grass :ice :fairy) [1 323]]
+ [(:fight :flying :ground :rock :bug :fire :grass :ice) [1N 321N]]
+ [(:fight :ground :rock :bug :ghost :fire :grass :ice) [1N 321N]])
+([(:fight :poison :ground :rock :fire :grass :ice :dark :fairy) [2 326]]
+ [(:fight :poison :ground :rock :fire :water :grass :dark :fairy) [2 316]]
+ [(:fight :poison :ground :rock :bug :fire :grass :ice :fairy) [1 328]])
+([(:fight :poison :ground :rock :bug :ghost :fire :grass :ice :fairy) [2 332]]
+ [(:fight :poison :ground :rock :bug :fire :grass :ice :dark :fairy) [2 332]]
+ [(:fight :ground :rock :bug :ghost :steel :fire :grass :ice :fairy) [2 332]])
+([(:fight :flying :poison :ground :rock :bug :ghost :fire :grass :ice :fairy) [2 336]]
+ [(:fight :flying :poison :ground :rock :bug :fire :grass :ice :dark :fairy) [2 336]]
+ [(:fight :flying :ground :rock :bug :ghost :steel :fire :grass :ice :fairy) [2 336]])
+([(:fight :flying :poison :ground :rock :bug :ghost :steel :fire :grass :ice :fairy) [2 338]]
+ [(:fight :flying :poison :ground :rock :bug :ghost :fire :water :grass :ice :fairy) [2 338]]
+ [(:fight :flying :poison :ground :rock :bug :ghost :fire :grass :electric :ice :fairy) [2 338]])
+```
+
 Static copy of results from testing entire single-type and dual-type effectiveness from Gen VI with amount of pokemon types in loadout running from 1 to 12 (The max if all 6 pokemon are hybrids).:
 
 ```clojure

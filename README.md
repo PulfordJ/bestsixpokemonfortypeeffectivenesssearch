@@ -15,7 +15,7 @@ Static copy of results from testing entire single-type and dual-type effectivene
 [(:ground :fire :ice) [1 264N]]
 [(:flying :ground :ice) [1 260N]])
 ([(:fight :ground :rock :ice) [1 282N]]
- [(:ground :rock :grass :ice) [1N 281N]]
+ [(:ground :rock :grass :ice) [1N 281N]]
  [(:ground :rock :ice :fairy) [1 281N]])
 ([(:fight :ground :rock :grass :ice) [1N 294N]]
  [(:ground :rock :grass :ice :fairy) [1 294N]]
@@ -31,7 +31,7 @@ Static copy of results from testing entire single-type and dual-type effectivene
  [(:fight :ground :rock :bug :ghost :fire :grass :ice) [1N 321N]])
 ([(:fight :poison :ground :rock :fire :grass :ice :dark :fairy) [2 326]]
  [(:fight :poison :ground :rock :fire :water :grass :dark :fairy) [2 316]]
- [(:fight :poison :ground :rock :bug :fire :grass :ice :fairy) [1 328]])
+ [(:fight :poison :ground :rock :bug :fire :grass :ice :fairy) [1 328]])
 ([(:fight :poison :ground :rock :bug :ghost :fire :grass :ice :fairy) [2 332]]
  [(:fight :poison :ground :rock :bug :fire :grass :ice :dark :fairy) [2 332]]
  [(:fight :ground :rock :bug :ghost :steel :fire :grass :ice :fairy) [2 332]])

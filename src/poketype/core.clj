@@ -269,7 +269,7 @@
   )
 
 (defn loadouts->key-val-loadouts-effectiveness-array [loadouts]
-  (pmap (fn[x] (let [max-arr (apply loadout-max-effectiveness-array x)] [x  [max-arr (loadout-total-effectiveness max-arr) (apply min max-arr)] ])) loadouts)
+  (pmap (fn[x] (let [max-arr (apply loadout-max-effectiveness-array x)] [x  [max-arr [(apply min max-arr) (loadout-total-effectiveness max-arr) ]] ])) loadouts)
   )
 
 (defn loadouts-effectiveness-result->total [result]
@@ -283,12 +283,12 @@
   )
 
 (defn highest-score [amount-of-types-in-loadout]
-  (apply max (map #(get (get %1 1) 1)  
+  (apply max (map #(get (get (get %1 1) 1) 1)
                   (loadouts->key-val-loadouts-effectiveness-array (type-combos-vector amount-of-types-in-loadout) ))) 
   )
 
 (def highest-score-with-all-types 
-  (loadouts->key-val-loadouts-effectiveness-array [(range 0 18)]))
+  (map highest-score (range 1 18)))
 
 
 (defn score-cutoff [amount-of-types-in-loadout] 
@@ -297,8 +297,9 @@
 (defn get-and-print-loadouts [amount-of-types-in-loadout]
   (let [score-bar (score-cutoff amount-of-types-in-loadout)](binding [*print-right-margin* 100]  
     (pprint (loadouts-map-string
-              (into [] (r/filter (fn [x] (and (>= (get (get x 1) 1) score-bar) (> (get (get x 1) 2) 0)) ) 
-                                 (loadouts->key-val-loadouts-effectiveness-array (type-combos-vector amount-of-types-in-loadout))))))))
+      (take 3 (sort #(compare (get (get %2 1) 1) (get (get %1 1) 1))
+              (into []  
+                                 (loadouts->key-val-loadouts-effectiveness-array (type-combos-vector amount-of-types-in-loadout)))))))))
   
   )
 
@@ -306,7 +307,6 @@
   (if (> n 1) 
      (recursive-1-to-n-loadout-checks (dec n))
      )(get-and-print-loadouts n))
-     
 
 (defn -main []
   (recursive-1-to-n-loadout-checks 12) 

@@ -4,7 +4,7 @@ Run program with  `lein run`.
 
 Static copy of results from testing entire single-type and dual-type effectiveness from Gen VI with amount of pokemon types in loadout running from 1 to 12 (The max if all 6 pokemon are hybrids). The results are then sorted by the lowest type effectiveness score (Ice is at least 1/4 effective against every type, for example.) and then by total type effectiveness against all current single and hybrid type pokemon. This shows that with 9 pokemon types a trainer can be "super effective" (2x effective) or better against all other pokemon.:
 
-```
+```
 ([(:ice) [1/4 339/2]] 
 [(:rock) [1/4 166N]]
 [(:fire) [1/4 313/2]])
@@ -23,7 +23,7 @@ Static copy of results from testing entire single-type and dual-type effectivene
 ([(:fight :ground :rock :fire :grass :ice) [1N 305N]]
  [(:ground :rock :fire :grass :ice :fairy) [1 305]]
  [(:fight :flying :ground :rock :grass :ice) [1N 304N]])
-([(:fight :ground :rock :bug :fire :grass :ice) [1N 315N]]
+([(:fight :ground :rock :bug :fire :grass :ice) [1N 315N]]
  [(:fight :ground :rock :fire :grass :ice :fairy) [1 314]]
  [(:ground :rock :bug :fire :grass :ice :fairy) [1 314]])
 ([(:fight :ground :rock :bug :fire :grass :ice :fairy) [1 323]]

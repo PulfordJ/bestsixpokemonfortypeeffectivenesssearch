@@ -41,6 +41,7 @@ Static copy of results from testing entire single-type and dual-type effectivene
 ([(:fight :flying :poison :ground :rock :bug :ghost :steel :fire :grass :ice :fairy) [2 338]]
  [(:fight :flying :poison :ground :rock :bug :ghost :fire :water :grass :ice :fairy) [2 338]]
  [(:fight :flying :poison :ground :rock :bug :ghost :fire :grass :electric :ice :fairy) [2 338]])
+ "Elapsed time: 96428.730988 msecs"
 ```
 
 Static copy of results from testing entire single-type and dual-type effectiveness from Gen VI with amount of pokemon types in loadout running from 1 to 12 (The max if all 6 pokemon are hybrids).:

@@ -44,6 +44,15 @@ Static copy of results from testing entire single-type and dual-type effectivene
  "Elapsed time: 96428.730988 msecs"
 ```
 
+A near optimal team for x2 coverage could be: 
+```
+Infernape - Fire/Fighting
+Venusaur - Grass/Poison
+Diancie - Rock/Fairy
+Krookodile - Ground/Dark
+Articuno  - Ice/Flying (Flying not needed but a very strong ice pokemon)
+```
+
 Static copy of results from testing entire single-type and dual-type effectiveness from Gen VI with amount of pokemon types in loadout running from 1 to 12 (The max if all 6 pokemon are hybrids).:
 
 ```clojure

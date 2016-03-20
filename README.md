@@ -6,41 +6,53 @@ Static copy of results from testing entire single-type and dual-type effectivene
 
 ```clojure
 ([(:ice) [1/4 339/2]] 
-[(:rock) [1/4 166N]]
-[(:fire) [1/4 313/2]])
+ [(:rock) [1/4 166N]] 
+ [(:fire) [1/4 313/2]] 
+ [(:flying) [1/4 305/2]])
 ([(:fight :ghost) [1N 210N]]
-[(:ground :ice) [1/2 481/2]]
-[(:fight :ice) [1/2 227N]])
+ [(:ground :ice) [1/2 481/2]]
+ [(:fight :ice) [1/2 227N]]
+ [(:ground :rock) [1/2 227N]])
 ([(:ground :rock :ice) [1 266N]]
-[(:ground :fire :ice) [1 264N]]
-[(:flying :ground :ice) [1 260N]])
+ [(:ground :fire :ice) [1 264N]]
+ [(:flying :ground :ice) [1 260N]]
+ [(:ground :ice :fairy) [1 258N]])
 ([(:fight :ground :rock :ice) [1 282N]]
  [(:ground :rock :grass :ice) [1N 281N]]
- [(:ground :rock :ice :fairy) [1 281N]])
+ [(:ground :rock :ice :fairy) [1 281N]]
+ [(:fight :ground :fire :ice) [1 280N]])
 ([(:fight :ground :rock :grass :ice) [1N 294N]]
  [(:ground :rock :grass :ice :fairy) [1 294N]]
- [(:fight :flying :ground :rock :ice) [1 293N]])
+ [(:fight :flying :ground :rock :ice) [1 293N]]
+ [(:fight :ground :rock :bug :ice) [1 293N]])
 ([(:fight :ground :rock :fire :grass :ice) [1N 305N]]
  [(:ground :rock :fire :grass :ice :fairy) [1 305]]
- [(:fight :flying :ground :rock :grass :ice) [1N 304N]])
+ [(:fight :flying :ground :rock :grass :ice) [1N 304N]]
+ [(:fight :ground :rock :bug :fire :ice) [1 304N]])
 ([(:fight :ground :rock :bug :fire :grass :ice) [1N 315N]]
  [(:fight :ground :rock :fire :grass :ice :fairy) [1 314]]
- [(:ground :rock :bug :fire :grass :ice :fairy) [1 314]])
+ [(:ground :rock :bug :fire :grass :ice :fairy) [1 314]]
+ [(:fight :flying :ground :rock :bug :grass :ice) [1N 313N]])
 ([(:fight :ground :rock :bug :fire :grass :ice :fairy) [1 323]]
  [(:fight :flying :ground :rock :bug :fire :grass :ice) [1N 321N]]
- [(:fight :ground :rock :bug :ghost :fire :grass :ice) [1N 321N]])
+ [(:fight :ground :rock :bug :ghost :fire :grass :ice) [1N 321N]]
+ [(:ground :rock :bug :steel :fire :grass :ice :fairy) [1 321]])
 ([(:fight :poison :ground :rock :fire :grass :ice :dark :fairy) [2 326]]
  [(:fight :poison :ground :rock :fire :water :grass :dark :fairy) [2 316]]
- [(:fight :poison :ground :rock :bug :fire :grass :ice :fairy) [1 328]])
+ [(:fight :poison :ground :rock :bug :fire :grass :ice :fairy) [1 328]]
+ [(:fight :ground :rock :bug :ghost :fire :grass :ice :fairy) [1 328]])
 ([(:fight :poison :ground :rock :bug :ghost :fire :grass :ice :fairy) [2 332]]
  [(:fight :poison :ground :rock :bug :fire :grass :ice :dark :fairy) [2 332]]
- [(:fight :ground :rock :bug :ghost :steel :fire :grass :ice :fairy) [2 332]])
+ [(:fight :ground :rock :bug :ghost :steel :fire :grass :ice :fairy) [2 332]]
+ [(:fight :ground :rock :bug :steel :fire :grass :ice :dark :fairy) [2 332]])
 ([(:fight :flying :poison :ground :rock :bug :ghost :fire :grass :ice :fairy) [2 336]]
  [(:fight :flying :poison :ground :rock :bug :fire :grass :ice :dark :fairy) [2 336]]
- [(:fight :flying :ground :rock :bug :ghost :steel :fire :grass :ice :fairy) [2 336]])
+ [(:fight :flying :ground :rock :bug :ghost :steel :fire :grass :ice :fairy) [2 336]]
+ [(:fight :flying :ground :rock :bug :steel :fire :grass :ice :dark :fairy) [2 336]])
 ([(:fight :flying :poison :ground :rock :bug :ghost :steel :fire :grass :ice :fairy) [2 338]]
  [(:fight :flying :poison :ground :rock :bug :ghost :fire :water :grass :ice :fairy) [2 338]]
- [(:fight :flying :poison :ground :rock :bug :ghost :fire :grass :electric :ice :fairy) [2 338]])
+ [(:fight :flying :poison :ground :rock :bug :ghost :fire :grass :electric :ice :fairy) [2 338]]
+ [(:fight :flying :poison :ground :rock :bug :ghost :fire :grass :psychic :ice :fairy) [2 338]])
  "Elapsed time: 96428.730988 msecs"
 ```
 

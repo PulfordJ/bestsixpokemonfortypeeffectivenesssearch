@@ -297,7 +297,7 @@
 (defn get-and-print-loadouts [amount-of-types-in-loadout]
   (let [score-bar (score-cutoff amount-of-types-in-loadout)](binding [*print-right-margin* 100]  
     (pprint (loadouts-map-string
-      (take 3 (sort #(compare (get (get %2 1) 1) (get (get %1 1) 1))
+      (take 4 (sort #(compare (get (get %2 1) 1) (get (get %1 1) 1))
               (into []  
                                  (loadouts->key-val-loadouts-effectiveness-array (type-combos-vector amount-of-types-in-loadout)))))))))
   

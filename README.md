@@ -69,7 +69,7 @@ Total type effectiveness against all existing types/hybrid types: 332
 ```
 If a sixth pokemon is desired:
 ```
-Meta Metagross -> Steel, Psychic Total Stats: 700
+Mega Metagross -> Steel, Psychic Total Stats: 700
 Lugia -> Psychic, flying Total stats: 680 
 
 Total type effectiveness against all existing types/hybrid types: 338

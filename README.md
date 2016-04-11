@@ -69,6 +69,10 @@ Total type effectiveness against all existing types/hybrid types: 332
 ```
 If a sixth pokemon is desired:
 ```
+Change: 
+(Mega) Houndoom -> Chandelure (Fire Ghost)
+
+Pick Either:
 Mega Metagross -> Steel, Psychic Total Stats: 700
 Lugia -> Psychic, flying Total stats: 680 
 

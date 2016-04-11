@@ -64,8 +64,14 @@ A near (and possibly entirely) optimal team of 5 pokemon would be:
 (Mega) Diancie -> Rock, Fairy
 Mamoswine -> Ground, Ice
 
-Minimum effectiveness against all existing types/hybrid types: 2x
-Total effectiveness against all existing types/hybrid types: 332
+Minimum type effectiveness against all existing types/hybrid types: 2x
+Total type effectiveness against all existing types/hybrid types: 332
+
+If a sixth pokemon is desired:
+Meta Metagross -> Steel, Psychic Total Stats: 700
+Lugia -> Psychic, flying Total stats: 680 
+
+Total type effectiveness against all existing types/hybrid types: 338
 ```
 
 Static copy of results from testing entire single-type and dual-type effectiveness from Gen VI with amount of pokemon types in loadout running from 1 to 12 (The max if all 6 pokemon are hybrids).:

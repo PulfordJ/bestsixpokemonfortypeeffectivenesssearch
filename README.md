@@ -56,13 +56,16 @@ Static copy of results from testing entire single-type and dual-type effectivene
  "Elapsed time: 96428.730988 msecs"
 ```
 
-A near optimal team for x2 coverage could be: 
+A near (and possibly entirely) optimal team of 5 pokemon would be: 
 ```
-Infernape - Fire/Fighting
-Venusaur - Grass/Poison
-Diancie - Rock/Fairy
-Krookodile - Ground/Dark
-Articuno  - Ice/Flying (Flying not needed but a very strong ice pokemon)
+(Mega) Venasaur -> Poison Grass
+(Mega) Heracross -> Bug Fighting
+(Mega) Houndoom -> Fire Dark
+(Mega) Diancie -> Rock, Fairy
+Mamoswine -> Ground, Ice
+
+Minimum effectiveness against all existing types/hybrid types: 2x
+Total effectiveness against all existing types/hybrid types: 332
 ```
 
 Static copy of results from testing entire single-type and dual-type effectiveness from Gen VI with amount of pokemon types in loadout running from 1 to 12 (The max if all 6 pokemon are hybrids).:

@@ -5,32 +5,6 @@
   (:use clojure.pprint )
   )
 
-;;; This is an incorrect implementation, such as might be written by
-;;; someone who was used to a Lisp in which an empty list is equal to
-;;; nil.
-(defn first-element [sequence default]
-  (if (empty? sequence)
-    default
-    (first sequence)))
-
-(def normal 0)
-(def fight 1)
-(def flying 2)
-(def poison 3)
-(def ground 4)
-(def rock 5)
-(def bug 6)
-(def ghost 7)
-(def steel 8)
-(def fire 9)
-(def water 10)
-(def grass 11)
-(def electric 12)
-(def psychic 13)
-(def ice 14)
-(def dragon 15)
-(def dark 16)
-
 (def type-index->keyword 
   [:normal
    :fight
@@ -255,7 +229,6 @@
            (apply concat type-effectiveness-dual-defence)))
   )
 
-
 (defn select-loadout [& type-vector]
   (map (fn [x] (get type-effectiveness-attack-defence-dual x)) type-vector)
   )
@@ -290,16 +263,15 @@
 (def highest-score-with-all-types 
   (map highest-score (range 1 18)))
 
-
 (defn score-cutoff [amount-of-types-in-loadout] 
   (highest-score amount-of-types-in-loadout) )
 
 (defn get-and-print-loadouts [amount-of-types-in-loadout]
-  (let [score-bar (score-cutoff amount-of-types-in-loadout)](binding [*print-right-margin* 100]  
+  (binding [*print-right-margin* 100]  
     (pprint (loadouts-map-string
-      (take 3 (sort #(compare (get (get %2 1) 1) (get (get %1 1) 1))
+      (take 5 (sort #(compare (get (get %2 1) 1) (get (get %1 1) 1))
               (into []  
-                                 (loadouts->key-val-loadouts-effectiveness-array (type-combos-vector amount-of-types-in-loadout)))))))))
+                                 (loadouts->key-val-loadouts-effectiveness-array (type-combos-vector amount-of-types-in-loadout))))))))
   
   )
 
@@ -309,5 +281,5 @@
      )(get-and-print-loadouts n))
 
 (defn -main []
-  (recursive-1-to-n-loadout-checks 12) 
+  (recursive-1-to-n-loadout-checks 18) 
   )

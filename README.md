@@ -56,16 +56,27 @@ Static copy of results from testing entire single-type and dual-type effectivene
  "Elapsed time: 96428.730988 msecs"
 ```
 
-A near (and possibly entirely) optimal team of 5 pokemon would be: 
+A near (and possibly entirely) optimal team of 5 pokemon would either of these: 
 ```
-(Mega) Venasaur -> Poison Grass
-(Mega) Heracross -> Bug Fighting
-(Mega) Houndoom -> Fire Dark
-(Mega) Diancie -> Rock, Fairy
-Mamoswine -> Ground, Ice
+(print-best-combos '(:fighting :poison :ground :rock :bug :fire :grass
+ :ice :dark :fairy))
 
-Minimum type effectiveness against all existing types/hybrid types: 2x
-Total type effectiveness against all existing types/hybrid types: 332
+([[10 3205]
+  ("Mega Heracross"
+   "Mega Venusaur"
+   "Primal Groudon"
+   "Mega Diancie"
+   "Weavile")
+  #{:fire :ground :bug :dark :fighting :grass :fairy :ice :rock
+    :poison}]
+ [[10 3166]
+  ("Mega Heracross"
+   "Drapion"
+   "Primal Groudon"
+   "Mega Diancie"
+   "Mega Abomasnow")
+  #{:fire :ground :bug :dark :fighting :grass :fairy :ice :rock
+    :poison}])
 ```
 If a sixth pokemon is desired:
 ```

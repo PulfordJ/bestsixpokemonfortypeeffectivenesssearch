@@ -46,14 +46,28 @@
 
 (fact "pokemon names can be extracted."
       (count data-partitioned-by-pokemon-names) => 803
-      (select-types-from-flat-pokemon-data (take 2 (pokemon-with-type-and-stats))) => #{:grass :poison}
-      (first pokemon-name-type-and-value) => '(318 "Bulbasaur" #{:grass :poison})
-      )
+      (select-types-from-flat-pokemon-data (take 2 (pokemon-with-type-and-stats))) => [:grass :poison]
+      (first pokemon-name-type-and-value) => '(318 "Bulbasaur" [:grass :poison])
 
       (pokemon-value (first (pokemon-with-type-and-stats))) => 318
-      (sort-pokemon-by-value (sort-by first > pokemon-name-type-and-value)) => 
-                                    '(780 "Mega Mewtwo X" #{:psychic :fighting})
+      (first (sort-pokemon-by-value pokemon-name-type-and-value)) => 
+                                    '(780 "Mega Mewtwo X" [:fighting :psychic])
        
       (count (set (map last pokemon-name-type-and-value))) => 133
+      (count partition-pokemon-into-types) => 133
+      (count best-pokemon-for-each-type) => 133
+      (first sorted-best-pokemon-for-each-type) => '(780 "Mega Mewtwo X" #{:psychic :fighting})
 
+      (sorted-best-pokemon-of-specific-type :ghost) => '(680 "Giratina" [:dragon :ghost])
+      (sorted-best-pokemon-of-specific-types :grass :poison) => '(625 "Mega Venusaur" [:grass :poison])
+
+      (sorted-best-pokemon-for-specified-combo-search '(:fight :ground :rock :ice)) => 
+       '((535 "Rhyperior" [:ground :rock]) 
+        (530 "Mamoswine" [:ground :ice]) 
+        (521 "Aurorus" [:ice :rock]))
+
+      (evaluate-real-pokemon-combination '((535 "Rhyperior" [:ground :rock]) (530 "Mamoswine" [:ground :ice]))) =>
+                 '([3 1065] ("Rhyperior" "Mamoswine") #{:ground :ice :rock})
+(all-possible-ability-outcomes '(:fight :ground :rock :ice)) => '([[3 1065] ("Rhyperior" "Mamoswine") #{:ground :ice :rock}] [[3 1056] ("Rhyperior" "Aurorus") #{:ground :ice :rock}] [[3 1051] ("Mamoswine" "Aurorus") #{:ground :ice :rock}])
+      )
        )

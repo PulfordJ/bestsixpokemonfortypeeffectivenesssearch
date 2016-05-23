@@ -10,7 +10,7 @@
 
 (def type-index->keyword 
   [:normal
-   :fight
+   :fighting
    :flying
    :poison
    :ground
@@ -94,7 +94,7 @@
             :water 
             :electric 
             :grass 
-            :fight 
+            :fighting 
             :ground 
             :flying 
             :psychic 
@@ -102,7 +102,7 @@
    :fire [
           :water
           :electric
-          :fight
+          :fighting
           :ground
           :flying
           :psychic
@@ -117,7 +117,7 @@
            :electric
            :grass
            :ice
-           :fight
+           :fighting
            :poison
            :ground
            :flying
@@ -141,7 +141,7 @@
               :fairy
               ]
    :grass [:ice
-           :fight
+           :fighting
            :poison
            :ground
            :flying
@@ -162,7 +162,7 @@
            :dragon
            :dark
            ]
-   :fight [:poison
+   :fighting [:poison
            :flying
            :psychic
            :bug
@@ -301,11 +301,14 @@
 
 
 (defn select-types-from-flat-pokemon-data [pokemon-type-data]
-    (set
-    (map keyword 
+         (apply vector
+         (map keyword
+         (sort
          (map str/lower-case 
-              (select [ALL :type_name] pokemon-type-data))
-    ))
+              (specter/select [specter/ALL :type_name] pokemon-type-data))
+                  )
+                )
+                )
   )
 
 (def pokemon-name-type-and-value
@@ -325,5 +328,64 @@
          ))
 
 (defn sort-pokemon-by-value [pokemon]
-  (first 
-    (sort-by first > pokemon)))
+    (sort-by first > pokemon))
+
+
+(defn sort-pokemon-by-type [pokemon]
+    (sort-by last pokemon))
+
+(def partition-pokemon-into-types
+  (partition-by last (sort-pokemon-by-type pokemon-name-type-and-value)))
+
+(def best-pokemon-for-each-type 
+   (map #(first (sort-pokemon-by-value %1)) partition-pokemon-into-types)
+)
+
+(def sorted-best-pokemon-for-each-type
+  (sort-pokemon-by-value best-pokemon-for-each-type))
+
+(defn sorted-best-pokemon-of-pred [pred]
+  (filter pred sorted-best-pokemon-for-each-type)
+  )
+
+(defn single-type-search-pred [type] 
+  #(some (fn[x](= type x)) (last %))
+  )
+
+(defn sorted-best-pokemon-of-specific-type [type]
+  (first (sorted-best-pokemon-of-pred (single-type-search-pred type)))
+  )
+
+(defn sorted-best-pokemon-of-specific-types [type1 type2]
+  (first (sorted-best-pokemon-of-pred (every-pred (single-type-search-pred type1)
+                                           (single-type-search-pred type2))
+  ))
+  )
+
+(defn sorted-best-pokemon-for-specified-combo-search [types]
+  (remove nil? (map #(apply sorted-best-pokemon-of-specific-types %) (combo/combinations types 2)))
+  )
+
+(defn evaluate-real-pokemon-combination [real-pokemon-combo]
+(let [types-included (set (flatten (map last real-pokemon-combo)))]
+  [
+   [
+    (count types-included)
+    (apply + (map first real-pokemon-combo))
+   ]
+   (map second real-pokemon-combo)
+   types-included
+   ]
+  )
+  )
+
+(defn all-possible-ability-outcomes [types]
+  (let [real-pokemon-combinations (combo/combinations (sorted-best-pokemon-for-specified-combo-search types) (int (Math/ceil (/ (count types) 2))))]
+    (reverse (sort-by first compare (map evaluate-real-pokemon-combination real-pokemon-combinations)))
+  )
+  )
+
+(defn print-best-combos [types]
+  (pprint (take 2 (all-possible-ability-outcomes types ))
+        )
+  )

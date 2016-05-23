@@ -1,6 +1,9 @@
 (ns poketype.core
   (:require [clojure.math.combinatorics :as combo ]
             [clojure.core.reducers :as r]
+            [clojure.string :as str]
+            [com.rpl.specter :as specter]
+            [yesql.core :refer [defqueries]]
             )
   (:use clojure.pprint )
   )
@@ -35,25 +38,25 @@
 
 (def type-effectiveness-attack-defence
   [
-    [1 1 1 1 1 1/2 1 0 1/2 1 1 1 1 1 1 1 1 1]
-    [2 1 1/2 1/2 1 2 1/2 0 2 1 1 1 1 1/2 2 1 2 1/2]
-    [1 2 1 1 1 1/2 2 1 1/2 1 1 2 1/2 1 1 1 1 1]
-    [1 1 1 1/2 1/2 1/2 1 1/2 0 1 1 2 1 1 1 1 1 2]
-    [1 1 0 2 1 2 1/2 1 2 2 1 1/2 2 1 1 1 1 1]
-    [1 1/2 2 1 1/2 1 2 1 1/2 2 1 1 1 1 2 1 1 1]
-    [1 1/2 1/2 1/2 1 1 1 1/2 1/2 1/2 1 2 1 2 1 1 2 1/2]
-    [0 1 1 1 1 1 1 2 1 1 1 1 1 2 1 1 1/2 1]
-    [1 1 1 1 1 2 1 1 1/2 1/2 1/2 1 1/2 1 2 1 1 2]
-    [1 1 1 1 1 1/2 2 1 2 1/2 1/2 2 1 1 2 1/2 1 1]
-    [1 1 1 1 2 2 1 1 1 2 1/2 1/2 1 1 1 1/2 1 1]
-    [1 1 1/2 1/2 2 2 1/2 1 1/2 1/2 2 1/2 1 1 1 1/2 1 1]
-    [1 1 2 1 0 1 1 1 1 1 2 1/2 1/2 1 1 1/2 1 1]
-    [1 2 1 2 1 1 1 1 1/2 1 1 1 1 1/2 1 1 0 1]
-    [1 1 2 1 2 1 1 1 1/2 1/2 1/2 2 1 1 1/2 2 1 1]
-    [1 1 1 1 1 1 1 1 1/2 1 1 1 1 1 1 2 1 0]
-    [1 1/2 1 1 1 1 1 2 1 1 1 1 1 2 1 1 1/2 1/2]
-    [1 2 1 1/2 1 1 1 1 1/2 1/2 1 1 1 1 1 2 2 1 ]
-               ]
+   [1 1 1 1 1 1/2 1 0 1/2 1 1 1 1 1 1 1 1 1]
+   [2 1 1/2 1/2 1 2 1/2 0 2 1 1 1 1 1/2 2 1 2 1/2]
+   [1 2 1 1 1 1/2 2 1 1/2 1 1 2 1/2 1 1 1 1 1]
+   [1 1 1 1/2 1/2 1/2 1 1/2 0 1 1 2 1 1 1 1 1 2]
+   [1 1 0 2 1 2 1/2 1 2 2 1 1/2 2 1 1 1 1 1]
+   [1 1/2 2 1 1/2 1 2 1 1/2 2 1 1 1 1 2 1 1 1]
+   [1 1/2 1/2 1/2 1 1 1 1/2 1/2 1/2 1 2 1 2 1 1 2 1/2]
+   [0 1 1 1 1 1 1 2 1 1 1 1 1 2 1 1 1/2 1]
+   [1 1 1 1 1 2 1 1 1/2 1/2 1/2 1 1/2 1 2 1 1 2]
+   [1 1 1 1 1 1/2 2 1 2 1/2 1/2 2 1 1 2 1/2 1 1]
+   [1 1 1 1 2 2 1 1 1 2 1/2 1/2 1 1 1 1/2 1 1]
+   [1 1 1/2 1/2 2 2 1/2 1 1/2 1/2 2 1/2 1 1 1 1/2 1 1]
+   [1 1 2 1 0 1 1 1 1 1 2 1/2 1/2 1 1 1/2 1 1]
+   [1 2 1 2 1 1 1 1 1/2 1 1 1 1 1/2 1 1 0 1]
+   [1 1 2 1 2 1 1 1 1/2 1/2 1/2 2 1 1 1/2 2 1 1]
+   [1 1 1 1 1 1 1 1 1/2 1 1 1 1 1 1 2 1 0]
+   [1 1/2 1 1 1 1 1 2 1 1 1 1 1 2 1 1 1/2 1/2]
+   [1 2 1 1/2 1 1 1 1 1/2 1/2 1 1 1 1 1 2 2 1 ]
+   ]
 
   )
 
@@ -245,9 +248,6 @@
   (pmap (fn[x] (let [max-arr (apply loadout-max-effectiveness-array x)] [x  [max-arr [(apply min max-arr) (loadout-total-effectiveness max-arr) ]] ])) loadouts)
   )
 
-(defn loadouts-effectiveness-result->total [result]
-  (get result 1))
-
 (defn loadouts-map-string [loadoutsMapping] 
   (map (fn[x] [
                (map type-index->keyword (get x 0)) 
@@ -261,7 +261,7 @@
   )
 
 (def highest-score-with-all-types 
-  (map highest-score (range 1 18)))
+  (highest-score (count type-index->keyword)))
 
 (defn score-cutoff [amount-of-types-in-loadout] 
   (highest-score amount-of-types-in-loadout) )
@@ -269,17 +269,61 @@
 (defn get-and-print-loadouts [amount-of-types-in-loadout]
   (binding [*print-right-margin* 100]  
     (pprint (loadouts-map-string
-      (take 5 (sort #(compare (get (get %2 1) 1) (get (get %1 1) 1))
-              (into []  
-                                 (loadouts->key-val-loadouts-effectiveness-array (type-combos-vector amount-of-types-in-loadout))))))))
-  
+              (take 5 (sort #(compare (get (get %2 1) 1) (get (get %1 1) 1))
+                            (into []  
+                                  (loadouts->key-val-loadouts-effectiveness-array (type-combos-vector amount-of-types-in-loadout))))))))
+
   )
 
 (defn recursive-1-to-n-loadout-checks [n] 
   (if (> n 1) 
-     (recursive-1-to-n-loadout-checks (dec n))
-     )(get-and-print-loadouts n))
+    (recursive-1-to-n-loadout-checks (dec n))
+    )(get-and-print-loadouts n))
 
 (defn -main []
   (recursive-1-to-n-loadout-checks 18) 
   )
+
+; Define a database connection spec. (This is standard clojure.java.jdbc.)
+(def db-spec {:classname "com.mysql.jdbc.Driver"
+              :subprotocol "mysql"
+              :subname "//localhost:3306/pokemon_db2"
+              :user "root"
+              :password "root"})
+
+; Import the SQL query as a function.
+(defqueries "resource/findpokemontypesandstats.sql"
+  {:connection db-spec})
+
+(def data-partitioned-by-pokemon-names
+  (partition-by :pokemon_name (pokemon-with-type-and-stats))
+  )
+
+
+(defn select-types-from-flat-pokemon-data [pokemon-type-data]
+    (set
+    (map keyword 
+         (map str/lower-case 
+              (select [ALL :type_name] pokemon-type-data))
+    ))
+  )
+
+(def pokemon-name-type-and-value
+  (map 
+    #(list (pokemon-value (first %1))
+           (:pokemon_name (first %1))
+           (select-types-from-flat-pokemon-data %1)) 
+    data-partitioned-by-pokemon-names)
+  )
+
+(defn pokemon-value [pokemon-value-data]
+  (apply +
+         ((
+           juxt 
+           :base_hp :base_atk :base_def :base_spa :base_spd :base_spe) 
+          pokemon-value-data)
+         ))
+
+(defn sort-pokemon-by-value [pokemon]
+  (first 
+    (sort-by first > pokemon)))

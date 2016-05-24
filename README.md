@@ -79,17 +79,6 @@ A near (and possibly entirely) optimal team of 5 pokemon would either of these:
   #{:fire :ground :bug :dark :fighting :grass :fairy :ice :rock
     :poison}])
 ```
-If a sixth pokemon is desired:
-```
-Change: 
-(Mega) Houndoom -> Chandelure (Fire Ghost)
-
-Pick Either:
-Mega Metagross -> Steel, Psychic Total Stats: 700
-Lugia -> Psychic, flying Total stats: 680 
-
-Total type effectiveness against all existing types/hybrid types: 338
-```
 
 Static copy of results from testing entire single-type effectiveness space from Gen VI:
 

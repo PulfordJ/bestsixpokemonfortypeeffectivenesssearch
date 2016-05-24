@@ -58,11 +58,10 @@ Static copy of results from testing entire single-type and dual-type effectivene
 
 A near (and possibly entirely) optimal team of 5 pokemon would either of these:
 ```clojure
+;Command
 (print-best-combos '(:fighting :poison :ground :rock :bug :fire :grass
  :ice :dark :fairy))
-```
-```clojure
-
+ ;Results
 ([[10 3205]
   ("Mega Heracross"
    "Mega Venusaur"

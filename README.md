@@ -57,7 +57,7 @@ Static copy of results from testing entire single-type and dual-type effectivene
 ```
 
 A near (and possibly entirely) optimal team of 5 pokemon would either of these: 
-```
+```clojure
 (print-best-combos '(:fighting :poison :ground :rock :bug :fire :grass
  :ice :dark :fairy))
 

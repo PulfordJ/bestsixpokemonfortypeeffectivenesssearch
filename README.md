@@ -56,10 +56,12 @@ Static copy of results from testing entire single-type and dual-type effectivene
  "Elapsed time: 96428.730988 msecs"
 ```
 
-A near (and possibly entirely) optimal team of 5 pokemon would either of these: 
+A near (and possibly entirely) optimal team of 5 pokemon would either of these:
 ```clojure
 (print-best-combos '(:fighting :poison :ground :rock :bug :fire :grass
  :ice :dark :fairy))
+```
+```clojure
 
 ([[10 3205]
   ("Mega Heracross"

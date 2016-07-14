@@ -80,42 +80,6 @@ A near (and possibly entirely) optimal team of 5 pokemon would either of these:
     :poison}])
 ```
 
-Static copy of results from testing entire single-type effectiveness space from Gen VI:
-
-```clojure
-([(:poison :ground :rock :grass :dark :fairy)
-  [(1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2) 35]]
- [(:poison :ground :rock :ghost :grass :fairy)
-  [(1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2) 35]]
- [(:fighting :flying :ground :electric :ice :dark)
-  [(2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1) 35]]
- [(:fighting :flying :ground :grass :ice :dark)
-  [(2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1) 35]]
- [(:fighting :flying :ground :steel :ice :dark)
-  [(2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2) 35]]
- [(:fighting :flying :ground :ghost :electric :ice)
-  [(2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1) 35]]
- [(:fighting :flying :ground :ghost :grass :ice)
-  [(2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1) 35]]
- [(:fighting :flying :ground :ghost :steel :ice)
-  [(2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2) 35]]
- [(:fighting :flying :poison :ground :ice :dark)
-  [(2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2) 35]]
- [(:fighting :flying :poison :ground :ghost :ice)
-  [(2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2) 35]])
-```
-
-Also results from Gen V (Before Fairy and minor effectiveness changes in table).
-```clojure
-([(:fighting :flying :ground :electric :ice :dark)
-  [(2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2) 34]]
- [(:fighting :flying :ground :grass :ice :dark)
-  [(2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2) 34]]
- [(:fighting :flying :ground :ghost :electric :ice)
-  [(2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2) 34]]
- [(:fighting :flying :ground :ghost :grass :ice)
-  [(2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2) 34]])
-```
 The project uses [Midje](https://github.com/marick/Midje/).
 
 ## How to run the tests

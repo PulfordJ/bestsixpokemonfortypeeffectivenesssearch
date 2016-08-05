@@ -56,7 +56,7 @@ Static copy of results from testing entire single-type and dual-type effectivene
  "Elapsed time: 96428.730988 msecs"
 ```
 
-A near (and possibly entirely) optimal team of 5 pokemon would either of these:
+These are the top two items in a list sorted by the amount of types (10 for the top entry) and then by the total stats of all pokemon within the specific implementation of that type list (Mega Heracross + Mega Venusaur ... + Weavile's stats = 3205 and are therefore the best possible group of pokemon one could use to cover this list of types (:fighting :poison ... :fairy) A near (and possibly entirely) optimal team of 5 pokemon would either of these:
 ```clojure
 ;Command
 (print-best-combos '(:fighting :poison :ground :rock :bug :fire :grass

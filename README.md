@@ -56,11 +56,12 @@ Static copy of results from testing entire single-type and dual-type effectivene
  "Elapsed time: 96428.730988 msecs"
 ```
 
-A near (and possibly entirely) optimal team of 5 pokemon would either of these: 
-```
+These are the top two items in a list sorted by the amount of types (10 for the top entry) and then by the total stats of all pokemon within the specific implementation of that type list (Mega Heracross + Mega Venusaur ... + Weavile's stats = 3205 and are therefore the best possible group of pokemon one could use to cover this list of types (:fighting :poison ... :fairy)). A near (and possibly entirely) optimal team of 5 pokemon would either of these:
+```clojure
+;Command
 (print-best-combos '(:fighting :poison :ground :rock :bug :fire :grass
  :ice :dark :fairy))
-
+ ;Results
 ([[10 3205]
   ("Mega Heracross"
    "Mega Venusaur"
@@ -78,54 +79,7 @@ A near (and possibly entirely) optimal team of 5 pokemon would either of these:
   #{:fire :ground :bug :dark :fighting :grass :fairy :ice :rock
     :poison}])
 ```
-If a sixth pokemon is desired:
-```
-Change: 
-(Mega) Houndoom -> Chandelure (Fire Ghost)
 
-Pick Either:
-Mega Metagross -> Steel, Psychic Total Stats: 700
-Lugia -> Psychic, flying Total stats: 680 
-
-Total type effectiveness against all existing types/hybrid types: 338
-```
-
-Static copy of results from testing entire single-type effectiveness space from Gen VI:
-
-```clojure
-([(:poison :ground :rock :grass :dark :fairy)
-  [(1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2) 35]]
- [(:poison :ground :rock :ghost :grass :fairy)
-  [(1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2) 35]]
- [(:fighting :flying :ground :electric :ice :dark)
-  [(2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1) 35]]
- [(:fighting :flying :ground :grass :ice :dark)
-  [(2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1) 35]]
- [(:fighting :flying :ground :steel :ice :dark)
-  [(2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2) 35]]
- [(:fighting :flying :ground :ghost :electric :ice)
-  [(2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1) 35]]
- [(:fighting :flying :ground :ghost :grass :ice)
-  [(2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1) 35]]
- [(:fighting :flying :ground :ghost :steel :ice)
-  [(2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2) 35]]
- [(:fighting :flying :poison :ground :ice :dark)
-  [(2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2) 35]]
- [(:fighting :flying :poison :ground :ghost :ice)
-  [(2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2) 35]])
-```
-
-Also results from Gen V (Before Fairy and minor effectiveness changes in table).
-```clojure
-([(:fighting :flying :ground :electric :ice :dark)
-  [(2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2) 34]]
- [(:fighting :flying :ground :grass :ice :dark)
-  [(2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2) 34]]
- [(:fighting :flying :ground :ghost :electric :ice)
-  [(2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2) 34]]
- [(:fighting :flying :ground :ghost :grass :ice)
-  [(2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2) 34]])
-```
 The project uses [Midje](https://github.com/marick/Midje/).
 
 ## How to run the tests

@@ -1,1 +1,1 @@
-http://pokemongohub.net/pokemon-sun-moon-alola-pokedex-stats-moves-types/
+Consider extracting database code out of application and simply store a blob of pokemon data in a clj file.

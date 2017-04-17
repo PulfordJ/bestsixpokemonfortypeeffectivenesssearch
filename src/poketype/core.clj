@@ -1241,6 +1241,43 @@
   )
   )
 
+(defn best-ability-combo [types]
+  (first (all-possible-ability-outcomes types ))
+)
+
+(def best-ten-types 
+  '((:fighting :poison :ground :rock :bug :ghost :fire :grass :ice :fairy)
+ (:fighting :poison :ground :rock :bug :fire :grass :ice :dark :fairy)
+ (:fighting :ground :rock :bug :ghost :steel :fire :grass :ice :fairy)
+ (:fighting :ground :rock :bug :steel :fire :grass :ice :dark :fairy)))
+
+(def abilities-per-typelist
+  (map best-ability-combo best-ten-types)
+)
+
+;(reverse (sort-by first compare (map best-ability-combo best-ten-types)))
+
+;([[10 3266]
+;  ("Mega Heracross"
+;   "Primal Groudon"
+;   "Mega Tyranitar"
+;   "Magearna"
+;   "Mega Abomasnow")
+;  #{:fire :ground :bug :dark :fighting :grass :fairy :ice :rock :steel}]
+; [[10 3266]
+;  ("Marshadow" "Primal Groudon" "Mega Diancie" "Mega Scizor" "Mega Abomasnow")
+;  #{:fire :ground :bug :fighting :grass :fairy :ghost :ice :rock :steel}]
+; [[10 3266]
+;  ("Mega Heracross"
+;   "Mega Gengar"
+;   "Primal Groudon"
+;   "Mega Diancie"
+;   "Mega Abomasnow")
+;  #{:fire :ground :bug :fighting :grass :fairy :ghost :ice :rock :poison}]
+; [[10 3205]
+;  ("Mega Heracross" "Mega Venusaur" "Primal Groudon" "Mega Diancie" "Weavile")
+;  #{:fire :ground :bug :dark :fighting :grass :fairy :ice :rock :poison}])
+
 (defn print-best-combos [types]
   (pprint (take 2 (all-possible-ability-outcomes types ))
         )

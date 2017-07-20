@@ -8,7 +8,7 @@
   (:use clojure.pprint )
   )
 
-(def type-index->keyword 
+(def type-index->keyword
   [:normal
    :fighting
    :flying
@@ -31,9 +31,9 @@
   )
 
 (def keyword->type-index
-  (into {}  (map (fn [x] 
-                   [x (.indexOf type-index->keyword x)] ) 
-                 type-index->keyword)) 
+  (into {}  (map (fn [x]
+                   [x (.indexOf type-index->keyword x)] )
+                 type-index->keyword))
   )
 
 (def type-effectiveness-attack-defence
@@ -60,7 +60,7 @@
 
   )
 
-(def all-attack-types 
+(def all-attack-types
   (range 0 (count (get type-effectiveness-attack-defence 0))))
 
 
@@ -81,23 +81,23 @@
 (defn generate-dual-type-effectiveness-number-args [type1 type2]
   (map * (get type-effectiveness-defence-attack type1)
        (get type-effectiveness-defence-attack type2)
-       )) 
+       ))
 
 (defn generate-dual-type-effectiveness [type1 type2]
-  (generate-dual-type-effectiveness-number-args 
+  (generate-dual-type-effectiveness-number-args
     (type1 keyword->type-index)
     (type2 keyword->type-index)
-    )) 
+    ))
 
-(def dual-type-combos 
+(def dual-type-combos
   {:normal [:fire
-            :water 
-            :electric 
-            :grass 
-            :fighting 
-            :ground 
-            :flying 
-            :psychic 
+            :water
+            :electric
+            :grass
+            :fighting
+            :ground
+            :flying
+            :psychic
             :fairy]
    :fire [
           :water
@@ -215,20 +215,20 @@
           :steel
           :fairy]
 :dark    [:steel]
-:steel   [:fairy]   
+:steel   [:fairy]
 }
-) 
+)
 
 (def type-effectiveness-dual-defence
-  (map (fn [x] 
+  (map (fn [x]
          (map (partial generate-dual-type-effectiveness (key x))
               (val x)
               ))  dual-type-combos) )
 
 (def type-effectiveness-attack-defence-dual
-  (transpose 
-    (apply conj 
-           type-effectiveness-defence-attack 
+  (transpose
+    (apply conj
+           type-effectiveness-defence-attack
            (apply concat type-effectiveness-dual-defence)))
   )
 
@@ -236,11 +236,11 @@
   (map (fn [x] (get type-effectiveness-attack-defence-dual x)) type-vector)
   )
 
-(defn loadout-max-effectiveness-array [& type-vector] 
-  (map (fn [x] (apply max x)) (transpose (apply select-loadout type-vector))) 
+(defn loadout-max-effectiveness-array [& type-vector]
+  (map (fn [x] (apply max x)) (transpose (apply select-loadout type-vector)))
   )
 
-(defn loadout-total-effectiveness [max-arr] 
+(defn loadout-total-effectiveness [max-arr]
   (apply + max-arr)
   )
 
@@ -248,40 +248,40 @@
   (pmap (fn[x] (let [max-arr (apply loadout-max-effectiveness-array x)] [x  [max-arr [(apply min max-arr) (loadout-total-effectiveness max-arr) ]] ])) loadouts)
   )
 
-(defn loadouts-map-string [loadoutsMapping] 
+(defn loadouts-map-string [loadoutsMapping]
   (map (fn[x] [
-               (map type-index->keyword (get x 0)) 
-               (get (get x 1) 1) 
+               (map type-index->keyword (get x 0))
+               (get (get x 1) 1)
                ] ) loadoutsMapping)
   )
 
 (defn highest-score [amount-of-types-in-loadout]
   (apply max (map #(get (get (get %1 1) 1) 1)
-                  (loadouts->key-val-loadouts-effectiveness-array (type-combos-vector amount-of-types-in-loadout) ))) 
+                  (loadouts->key-val-loadouts-effectiveness-array (type-combos-vector amount-of-types-in-loadout) )))
   )
 
-(def highest-score-with-all-types 
+(def highest-score-with-all-types
   (highest-score (count type-index->keyword)))
 
-(defn score-cutoff [amount-of-types-in-loadout] 
+(defn score-cutoff [amount-of-types-in-loadout]
   (highest-score amount-of-types-in-loadout) )
 
 (defn get-and-print-loadouts [amount-of-types-in-loadout]
-  (binding [*print-right-margin* 100]  
+  (binding [*print-right-margin* 100]
     (pprint (loadouts-map-string
               (take 5 (sort #(compare (get (get %2 1) 1) (get (get %1 1) 1))
-                            (into []  
+                            (into []
                                   (loadouts->key-val-loadouts-effectiveness-array (type-combos-vector amount-of-types-in-loadout))))))))
 
   )
 
-(defn recursive-1-to-n-loadout-checks [n] 
-  (if (> n 1) 
+(defn recursive-1-to-n-loadout-checks [n]
+  (if (> n 1)
     (recursive-1-to-n-loadout-checks (dec n))
     )(get-and-print-loadouts n))
 
 (defn -main []
-  (recursive-1-to-n-loadout-checks 18) 
+  (recursive-1-to-n-loadout-checks 18)
   )
 
 ;total stats, pokemon name, types.
@@ -1183,6 +1183,29 @@
   (concat pokemon-name-type-and-value-i-to-vi viipokemon)
   )
 
+(defn remove-a-pokemon [pokemon-seq pokemon]
+  (filter (fn[x] (not (.contains (nth x 1) pokemon))) pokemon-seq))
+
+(defn filter-pokemon-seq[names]
+  (loop [names names
+         pokemon-seq pokemon-name-type-and-value]
+    (if (empty? names)
+      pokemon-seq
+      (recur (pop names)
+             (remove-a-pokemon pokemon-seq (peek names)) ))))
+
+(defn retrieve-a-pokemon [seq pokemon]
+  (filter (fn[x] (.contains (nth x 1) pokemon)) seq)
+)
+
+(defn retrieve-pokemon-seq[names]
+  (loop [names names pokemon-seq '()]
+    (if (empty? names)
+      pokemon-seq
+      (recur (pop names)
+             (concat (retrieve-a-pokemon pokemon-name-type-and-value (peek names))
+                     pokemon-seq) ))))
+
 (defn sort-pokemon-by-value [pokemon]
     (sort-by first > pokemon))
 
@@ -1193,7 +1216,7 @@
 (def partition-pokemon-into-types
   (partition-by last (sort-pokemon-by-type pokemon-name-type-and-value)))
 
-(def best-pokemon-for-each-type 
+(def best-pokemon-for-each-type
    (map #(first (sort-pokemon-by-value %1)) partition-pokemon-into-types)
 )
 
@@ -1204,7 +1227,7 @@
   (filter pred sorted-best-pokemon-for-each-type)
   )
 
-(defn single-type-search-pred [type] 
+(defn single-type-search-pred [type]
   #(some (fn[x](= type x)) (last %))
   )
 
@@ -1245,7 +1268,7 @@
   (first (all-possible-ability-outcomes types ))
 )
 
-(def best-ten-types 
+(def best-ten-types
   '((:fighting :poison :ground :rock :bug :ghost :fire :grass :ice :fairy)
  (:fighting :poison :ground :rock :bug :fire :grass :ice :dark :fairy)
  (:fighting :ground :rock :bug :ghost :steel :fire :grass :ice :fairy)

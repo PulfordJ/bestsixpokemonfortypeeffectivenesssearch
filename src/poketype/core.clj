@@ -263,9 +263,6 @@
 (def highest-score-with-all-types
   (highest-score (count type-index->keyword)))
 
-(defn score-cutoff [amount-of-types-in-loadout]
-  (highest-score amount-of-types-in-loadout) )
-
 (defn get-and-print-loadouts [amount-of-types-in-loadout]
   (binding [*print-right-margin* 100]
     (pprint (loadouts-map-string
@@ -1183,17 +1180,6 @@
   (concat pokemon-name-type-and-value-i-to-vi viipokemon)
   )
 
-(defn remove-a-pokemon [pokemon-seq pokemon]
-  (filter (fn[x] (not (.contains (nth x 1) pokemon))) pokemon-seq))
-
-(defn filter-pokemon-seq[names]
-  (loop [names names
-         pokemon-seq pokemon-name-type-and-value]
-    (if (empty? names)
-      pokemon-seq
-      (recur (pop names)
-             (remove-a-pokemon pokemon-seq (peek names)) ))))
-
 (defn retrieve-a-pokemon [seq pokemon]
   (filter (fn[x] (.contains (nth x 1) pokemon)) seq)
 )
@@ -1317,3 +1303,5 @@
   (pprint (take 2 (all-possible-ability-outcomes types ))
         )
   )
+
+;Junk code to print effectiveness from type list.(loadouts->key-val-loadouts-effectiveness-array (seq [(mapv keyword->type-index '(:grass :flying))]))

@@ -1278,6 +1278,18 @@
   (map best-ability-combo best-ten-types)
 )
 
+(def best-twelve-types 
+  '(
+     (:fighting :flying :poison :ground :rock :bug :ghost :steel :fire :grass :ice :fairy)
+     (:fighting :flying :poison :ground :rock :bug :ghost :fire :water :grass :ice :fairy)
+     (:fighting :flying :poison :ground :rock :bug :ghost :fire :grass :electric :ice :fairy)
+     (:fighting :flying :poison :ground :rock :bug :ghost :fire :grass :psychic :ice :fairy)
+    ))
+
+(def abilities-per-typelist-twelve
+  (map best-ability-combo best-twelve-types)
+)
+
 ;(reverse (sort-by first compare (map best-ability-combo best-ten-types)))
 
 ;([[10 3266]

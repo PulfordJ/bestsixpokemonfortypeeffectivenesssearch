@@ -264,6 +264,11 @@
 (def highest-score-with-all-types
   (highest-score (count type-index->keyword)))
 
+(def combo12 (loadouts-map-string
+              (sort #(compare (get (get %2 1) 1) (get (get %1 1) 1))
+                            (into []
+                                  (loadouts->key-val-loadouts-effectiveness-array (type-combos-vector 12))))))
+
 (defn get-and-print-loadouts [amount-of-types-in-loadout]
   (binding [*print-right-margin* 100]
     (pprint (loadouts-map-string

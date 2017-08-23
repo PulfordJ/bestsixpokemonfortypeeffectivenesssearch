@@ -11,4 +11,4 @@
  [(:fighting :flying         :ground :rock :bug :ghost       :steel :fire        :grass :psychic  :ice :fairy) [2 338]]
  [(:fighting :flying         :ground :rock :bug        :dark :steel :fire :water :grass           :ice :fairy) [2 338]]
  [(:fighting :flying         :ground :rock :bug        :dark :steel :fire        :grass :electric :ice :fairy) [2 338]]
- [(:fighting :flying :ground :rock :bug :steel :fire :grass :psychic :ice :dark :fairy) [2 338]])
+ [(:fighting :flying         :ground :rock :bug        :dark :steel :fire        :grass :psychic  :ice :fairy) [2 338]])

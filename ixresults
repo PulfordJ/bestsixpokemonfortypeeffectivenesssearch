@@ -1,0 +1,27 @@
+([[11 3385]
+  ("SlitherWing"
+   "IronValiant"
+   "IronJugulis"
+   "Toedscruel"
+   "IronMoth"
+   "IronBundle")
+  #{:fire :ground :bug :flying :dark :fighting :grass :fairy :ice
+    :water :poison}]
+([[11 3385]
+  ("IronValiant"
+   "IronJugulis"
+   "Toedscruel"
+   "IronThorns"
+   "IronMoth"
+   "Chien-Pao")
+  #{:fire :ground :flying :dark :electric :fighting :grass :fairy :ice
+    :rock :poison}]
+ [[11 3385]
+  ("SlitherWing"
+   "IronValiant"
+   "Toedscruel"
+   "IronThorns"
+   "IronMoth"
+   "Chien-Pao")
+  #{:fire :ground :bug :dark :electric :fighting :grass :fairy :ice
+    :rock :poison}])

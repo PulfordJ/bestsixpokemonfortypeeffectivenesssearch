@@ -272,20 +272,16 @@
 (defn get-and-print-loadouts [amount-of-types-in-loadout]
   (binding [*print-right-margin* 100]
     (pprint (loadouts-map-string
-              (take 5 (sort #(compare (get (get %2 1) 1) (get (get %1 1) 1))
+              (take 1000 (sort #(compare (get (get %2 1) 1) (get (get %1 1) 1))
                             (into []
                                   (loadouts->key-val-loadouts-effectiveness-array (type-combos-vector amount-of-types-in-loadout))))))))
 
   )
 
 (defn recursive-1-to-n-loadout-checks [n]
-  (if (> n 1)
+  (if (> n 12)
     (recursive-1-to-n-loadout-checks (dec n))
     )(get-and-print-loadouts n))
-
-(defn -main []
-  (recursive-1-to-n-loadout-checks 18)
-  )
 
 ;total stats, pokemon name, types.
 (def pokemon-name-type-and-value-i-to-vi
@@ -1182,8 +1178,128 @@
 (570 "Xurkitree"[:electric])
 (600 "Necrozma"[:psychic])))
 
+;total stats, pokemon name, types.
+(def ixpokemon
+'(
+(490, "PaldeanTauros", [:fighting]),
+(490, "PaldeanFireTauros", [:fighting :fire]),
+(490, "PaldeanWaterTauros", [:fighting :water]),
+(210, "PaldeanWooper", [:poison :ground]),
+(310, "Sprigatito", [:grass]),
+(410, "Floragato", [:grass]),
+(530, "Meowscarada", [:grass :dark]),
+(310, "Fuecoco", [:fire]),
+(411, "Crocalor", [:fire]),
+(530, "Skeledirge", [:fire :ghost]),
+(310, "Quaxly", [:water]),
+(410, "Quaxwell", [:water]),
+(530, "Quaquaval", [:water :fighting]),
+(254, "Lechonk", [:normal]),
+(489, "OinkologneMale", [:normal]),
+(489, "OinkologneFemale", [:normal]),
+(520, "DudunsparceTwo-SegmentForm", [:normal]),
+(520, "DudunsparceThree-SegmentForm", [:normal]),
+(210, "Tarountula", [:bug]),
+(404, "Spidops", [:bug]),
+(210, "Nymble", [:bug]),
+(450, "Lokix", [:bug :dark]),
+(270, "Rellor", [:bug]),
+(470, "Rabsca", [:bug :psychic]),
+(290, "Greavard", [:ghost]),
+(488, "Houndstone", [:ghost]),
+(255, "Flittle", [:psychic]),
+(481, "Espathra", [:psychic]),
+(520, "Farigiraf", [:normal :psychic]),
+(245, "Wiglett", [:water]),
+(425, "Wugtrio", [:water]),
+(530, "Dondozo", [:water]),
+(478, "Veluza", [:water :psychic]),
+(315, "Finizen", [:water]),
+(457, "PalafinZeroForm", [:water]),
+(650, "PalafinHeroForm", [:water]),
+(260, "Smoliv", [:grass :normal]),
+(354, "Dolliv", [:grass :normal]),
+(510, "Arboliva", [:grass :normal]),
+(304, "Capsakid", [:grass]),
+(486, "Scovillain", [:grass :fire]),
+(272, "Tadbulb", [:electric]),
+(495, "Bellibolt", [:electric]),
+(300, "Varoom", [:steel :poison]),
+(500, "Revavroom", [:steel :poison]),
+(480, "Orthworm", [:steel]),
+(305, "Tandemaus", [:normal]),
+(470, "MausholdFamilyofThree", [:normal]),
+(470, "MausholdFamilyofFour", [:normal]),
+(334, "Cetoddle", [:ice]),
+(521, "Cetitan", [:ice]),
+(320, "Frigibax", [:dragon :ice]),
+(423, "Arctibax", [:dragon :ice]),
+(600, "Baxcalibur", [:dragon :ice]),
+(475, "Tatsugiri", [:dragon :water]),
+(501, "Cyclizar", [:dragon :normal]),
+(240, "Pawmi", [:electric]),
+(350, "Pawmo", [:electric :fighting]),
+(490, "Pawmot", [:electric :fighting]),
+(280, "Wattrel", [:electric :flying]),
+(490, "Kilowattrel", [:electric :flying]),
+(485, "Bombirdier", [:flying :dark]),
+(417, "", []),
+(417, "Plumage", [:normal :flying]),
+(417, "", []),
+(417, "Plumage", [:normal :flying]),
+(500, "Flamigo", [:flying :fighting]),
+(450, "Klawf", [:rock]),
+(280, "Nacli", [:rock]),
+(355, "Naclstack", [:rock]),
+(500, "Garganacl", [:rock]),
+(350, "Glimmet", [:rock :poison]),
+(525, "Glimmora", [:rock :poison]),
+(290, "Shroodle", [:poison :normal]),
+(485, "Grafaiai", [:poison :normal]),
+(312, "Fidough", [:fairy]),
+(477, "Dachsbun", [:fairy]),
+(340, "Maschiff", [:dark]),
+(505, "Mabosstiff", [:dark]),
+(275, "Bramblin", [:grass :ghost]),
+(480, "Brambleghast", [:grass :ghost]),
+(300, "GimmighoulChestForm", [:ghost]),
+(300, "GimmighoulRoamingForm", [:ghost]),
+(550, "Gholdengo", [:steel :ghost]),
+(570, "GreatTusk", [:ground :fighting]),
+(570, "BruteBonnet", [:grass :dark]),
+(570, "SandyShocks", [:electric :ground]),
+(570, "ScreamTail", [:fairy :psychic]),
+(570, "FlutterMane", [:ghost :fairy]),
+(570, "SlitherWing", [:bug :fighting]),
+(590, "RoaringMoon", [:dragon :dark]),
+(570, "IronTreads", [:ground :steel]),
+(570, "IronMoth", [:fire :poison]),
+(570, "IronHands", [:fighting :electric]),
+(570, "IronJugulis", [:dark :flying]),
+(570, "IronThorns", [:rock :electric]),
+(570, "IronBundle", [:ice :water]),
+(590, "IronValiant", [:fairy :fighting]),
+(570, "Ting-Lu", [:dark :ground]),
+(570, "Chien-Pao", [:dark :ice]),
+(570, "Wo-Chien", [:dark :grass]),
+(570, "Chi-Yu", [:dark :fire]),
+(670, "Koraidon", [:fighting :dragon]),
+(670, "Miraidon", [:electric :dragon]),
+(297, "Tinkatink", [:fairy :steel]),
+(380, "Tinkatuff", [:fairy :steel]),
+(506, "Tinkaton", [:fairy :steel]),
+(255, "Charcadet", [:fire]),
+(525, "Armarouge", [:fire :psychic]),
+(525, "Ceruledge", [:fire :ghost]),
+(335, "Toedscool", [:ground :grass]),
+(515, "Toedscruel", [:ground :grass]),
+(550, "Kingambit", [:dark :steel]),
+(430, "Clodsire", [:poison :ground]),
+(535, "Annihilape", [:fighting :ghost])
+))
+
 (def pokemon-name-type-and-value
-  (concat pokemon-name-type-and-value-i-to-vi viipokemon)
+  (concat ixpokemon)
   )
 
 (defn retrieve-a-pokemon [seq pokemon]
@@ -1648,3 +1764,21 @@
   )
 
 ;Junk code to print effectiveness from type list.(loadouts->key-val-loadouts-effectiveness-array (seq [(mapv keyword->type-index '(:grass :flying))]))
+
+(defn -main []
+  ;(recursive-1-to-n-loadout-checks 18)
+ (print-best-combos [:fighting :flying :ground :rock :bug :fire :grass :ice :fairy :ghost :poison :steel])
+ (print-best-combos [:fighting :flying :ground :rock :bug :fire :grass :ice :fairy :ghost :poison :water])
+ (print-best-combos [:fighting :flying :ground :rock :bug :fire :grass :ice :fairy :ghost :poison :electric])
+ (print-best-combos [:fighting :flying :ground :rock :bug :fire :grass :ice :fairy :ghost :poison :psychicv])
+ (print-best-combos [:fighting :flying :ground :rock :bug :fire :grass :ice :fairy :dark  :poison :steel])
+ (print-best-combos [:fighting :flying :ground :rock :bug :fire :grass :ice :fairy :dark  :poison :water])
+ (print-best-combos [:fighting :flying :ground :rock :bug :fire :grass :ice :fairy :dark  :poison :electric])
+ (print-best-combos [:fighting :flying :ground :rock :bug :fire :grass :ice :fairy :dark  :poison :psychic])
+ (print-best-combos [:fighting :flying :ground :rock :bug :fire :grass :ice :fairy :ghost :steel  :water])
+ (print-best-combos [:fighting :flying :ground :rock :bug :fire :grass :ice :fairy :ghost :steel  :electric])
+ (print-best-combos [:fighting :flying :ground :rock :bug :fire :grass :ice :fairy :ghost :steel  :psychic])
+ (print-best-combos [:fighting :flying :ground :rock :bug :fire :grass :ice :fairy :dark  :steel  :water])
+ (print-best-combos [:fighting :flying :ground :rock :bug :fire :grass :ice :fairy :dark  :steel  :electric])
+ (print-best-combos [:fighting :flying :ground :rock :bug :fire :grass :ice :fairy :dark  :steel  :psychic])
+  )

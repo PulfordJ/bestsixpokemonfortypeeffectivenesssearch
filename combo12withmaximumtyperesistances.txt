@@ -1,0 +1,64 @@
+; These are the results for best 12 types when the following types are a prerequisite
+; Dark because it is immune to Psychic
+; Fairy because it is immune to Dragon
+; Steel because it is immune to Poison
+; Flying because it is immune to Ground
+; Ground because it is immune to Electric
+
+([[11 3356]
+  ("SlitherWing"
+   "IronValiant"
+   "IronJugulis"
+   "IronTreads"
+   "Scovillain"
+   "IronBundle")
+  #{:fire :ground :bug :flying :dark :fighting :grass :fairy :ice
+    :water :steel}]
+([[11 3356]
+  ("IronValiant"
+   "IronJugulis"
+   "IronTreads"
+   "IronThorns"
+   "Chien-Pao"
+   "Scovillain")
+  #{:fire :ground :flying :dark :electric :fighting :grass :fairy :ice
+    :rock :steel}]
+ [[11 3356]
+  ("SlitherWing"
+   "IronValiant"
+   "IronTreads"
+   "IronThorns"
+   "Chien-Pao"
+   "Scovillain")
+  #{:fire :ground :bug :dark :electric :fighting :grass :fairy :ice
+    :rock :steel}])
+
+
+; Below are subpar matches
+([[11 3336]
+  ("SlitherWing"
+   "IronJugulis"
+   "IronTreads"
+   "Chien-Pao"
+   "Scovillain"
+   "ScreamTail")
+  #{:fire :psychic :ground :bug :flying :dark :fighting :grass :fairy
+    :ice :steel}]
+ [[11 3301]
+  ("SlitherWing"
+   "IronJugulis"
+   "Toedscruel"
+   "Chi-Yu"
+   "Tinkaton"
+   "IronBundle")
+  #{:fire :ground :bug :flying :dark :fighting :grass :fairy :ice
+    :water :steel}])
+ [[11 3266]
+  ("Flamigo"
+   "SlitherWing"
+   "IronTreads"
+   "Chien-Pao"
+   "Scovillain"
+   "ScreamTail")
+  #{:fire :psychic :ground :bug :flying :dark :fighting :grass :fairy
+    :ice :steel}])

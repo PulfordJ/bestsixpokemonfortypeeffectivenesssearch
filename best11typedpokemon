@@ -1,129 +1,14 @@
-([[11 3203]
-  ("SlitherWing"
-   "IronValiant"
-   "Plumage"
-   "IronTreads"
-   "Scovillain"
-   "Chien-Pao")
-  #{:fire :ground :bug :flying :normal :dark :fighting :grass :fairy
-    :ice :steel}]
- [[11 3148]
-  ("SlitherWing"
-   "Plumage"
-   "Toedscruel"
-   "Tinkaton"
-   "Chi-Yu"
-   "Chien-Pao")
-  #{:fire :ground :bug :flying :normal :dark :fighting :grass :fairy
-    :ice :steel}])
-([[11 3356]
-  ("SlitherWing"
-   "IronValiant"
-   "IronJugulis"
-   "IronTreads"
-   "Scovillain"
-   "IronBundle")
-  #{:fire :ground :bug :flying :dark :fighting :grass :fairy :ice
-    :water :steel}]
- [[11 3301]
-  ("SlitherWing"
-   "IronJugulis"
-   "Toedscruel"
-   "Tinkaton"
-   "Chi-Yu"
-   "IronBundle")
-  #{:fire :ground :bug :flying :dark :fighting :grass :fairy :ice
-    :water :steel}])
-([[11 3356]
-  ("IronValiant"
-   "IronJugulis"
-   "IronTreads"
-   "IronThorns"
-   "Scovillain"
-   "Chien-Pao")
-  #{:fire :ground :flying :dark :electric :fighting :grass :fairy :ice
-    :rock :steel}]
- [[11 3356]
-  ("SlitherWing"
-   "IronValiant"
-   "IronTreads"
-   "IronThorns"
-   "Scovillain"
-   "Chien-Pao")
-  #{:fire :ground :bug :dark :electric :fighting :grass :fairy :ice
-    :rock :steel}])
-([[10 3356]
-  ("SlitherWing"
-   "IronValiant"
-   "IronJugulis"
-   "IronTreads"
-   "Scovillain"
-   "Chien-Pao")
-  #{:fire :ground :bug :flying :dark :fighting :grass :fairy :ice
-    :steel}]
- [[10 3301]
-  ("SlitherWing"
-   "IronJugulis"
-   "Toedscruel"
-   "Tinkaton"
-   "Chi-Yu"
-   "Chien-Pao")
-  #{:fire :ground :bug :flying :dark :fighting :grass :fairy :ice
-    :steel}])
-([[11 3311]
-  ("IronValiant"
-   "IronJugulis"
-   "IronTreads"
-   "Glimmora"
-   "Scovillain"
-   "Chien-Pao")
-  #{:fire :ground :flying :dark :fighting :grass :fairy :ice :rock
-    :steel :poison}]
- [[11 3311]
-  ("SlitherWing"
-   "IronValiant"
-   "IronTreads"
-   "Glimmora"
-   "Scovillain"
-   "Chien-Pao")
-  #{:fire :ground :bug :dark :fighting :grass :fairy :ice :rock :steel
-    :poison}])
+;Best combination with ghost, which is immune to normal attacks.
 ([[11 3336]
-  ("SlitherWing"
-   "IronJugulis"
-   "IronTreads"
-   "Scovillain"
-   "Chien-Pao"
-   "ScreamTail")
-  #{:fire :psychic :ground :bug :flying :dark :fighting :grass :fairy
-    :ice :steel}]
- [[11 3266]
-  ("Flamigo"
-   "SlitherWing"
-   "IronTreads"
-   "Scovillain"
-   "Chien-Pao"
-   "ScreamTail")
-  #{:fire :psychic :ground :bug :flying :dark :fighting :grass :fairy
-    :ice :steel}])
-([[11 3336]
-  ("SlitherWing"
-   "IronJugulis"
-   "IronTreads"
-   "Scovillain"
-   "Chien-Pao"
-   "FlutterMane")
+  ("SlitherWing" -> bug/fighting
+   "IronJugulis" -> dark/flying high special attack, low attack BUT highest flying attack
+   "IronTreads" -> ground/steel
+   "Scovillain" -> grass/fire
+   "Chien-Pao" -> Dark/ice 
+   "FlutterMane" -> Ghost/fairy)
   #{:fire :ground :bug :flying :dark :fighting :grass :fairy :ghost
     :ice :steel}]
- [[11 3266]
-  ("Flamigo"
-   "SlitherWing"
-   "IronTreads"
-   "Scovillain"
-   "Chien-Pao"
-   "FlutterMane")
-  #{:fire :ground :bug :flying :dark :fighting :grass :fairy :ghost
-    :ice :steel}])
+; Best type combination in terms of overall stats
 ([[11 3386]
   ("SlitherWing"
    "IronValiant"
@@ -133,12 +18,3 @@
    "Baxcalibur")
   #{:fire :ground :bug :flying :dark :dragon :fighting :grass :fairy
     :ice :steel}]
- [[11 3331]
-  ("SlitherWing"
-   "IronJugulis"
-   "Toedscruel"
-   "Tinkaton"
-   "Chi-Yu"
-   "Baxcalibur")
-  #{:fire :ground :bug :flying :dark :dragon :fighting :grass :fairy
-    :ice :steel}])
